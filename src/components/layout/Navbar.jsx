@@ -9,9 +9,6 @@ const navLinks = [
   { label: 'About Us', href: '/about' },
   { label: 'Products', href: '/products' },
   { label: 'Industries', href: '/industries' },
-  { label: 'Why WECT', href: '/why-us' },
-  { label: 'Manufacturing', href: '/manufacturing' },
-  { label: 'Gallery', href: '/gallery' },
   { label: 'Contact Us', href: '/contact' },
 ]
 
@@ -75,7 +72,7 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
             ? 'bg-wect-navy-light/80 backdrop-blur-md border-white/5 text-steel-400'
             : 'bg-wect-navy/30 backdrop-blur-sm border-white/5 text-steel-300'
         }`}>
-          <div className="max-w-[92rem] mx-auto px-6 flex flex-wrap items-center justify-between gap-4">
+          <div className="section-container w-full flex flex-wrap items-center justify-between gap-4">
             {/* Left side: Contact Info */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
               <a
@@ -117,7 +114,7 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
             ? 'bg-wect-navy/70 backdrop-blur-lg py-2 border-b border-white/10 shadow-glass'
             : 'bg-transparent py-4'
         }`}>
-          <div className="max-w-[92rem] mx-auto px-6 flex items-center justify-between gap-4">
+          <div className="section-container w-full flex items-center justify-between gap-4">
 
             {/* Logo */}
             <Link
@@ -141,11 +138,11 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
                 />
               </div>
               <div className="flex flex-col justify-center leading-none">
-                <span className="font-display font-black text-xl tracking-[0.08em] uppercase text-white">
-                  WECT
+                <span className="font-display font-black text-[15px] sm:text-[17px] tracking-tight uppercase text-white">
+                  WELL EDGE
                 </span>
-                <span className="font-display font-bold text-[8px] tracking-[0.06em] uppercase text-wect-red-light mt-1">
-                  WELL EDGE CUTTING TOOLS
+                <span className="font-display font-black text-[9px] sm:text-[10px] tracking-[0.18em] uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-wect-red-light mt-1">
+                  CUTTING TOOLS
                 </span>
               </div>
             </Link>

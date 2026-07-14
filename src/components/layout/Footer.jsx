@@ -33,13 +33,11 @@ export default function Footer({ onSelectCategory, onLogoClick }) {
       case 'About Us':
         return '/about'
       case 'Why WECT':
-        return '/why-us'
+        return '/about#why-us'
       case 'Products':
         return '/products'
       case 'Industries':
         return '/industries'
-      case 'Gallery':
-        return '/gallery'
       case 'Contact Us':
         return '/contact'
       default:
@@ -49,7 +47,7 @@ export default function Footer({ onSelectCategory, onLogoClick }) {
 
   return (
     <footer className="font-body bg-transparent py-12 relative overflow-hidden">
-      <div className="max-w-[92rem] mx-auto px-6 relative z-10">
+      <div className="section-container relative z-10">
         
         {/* Main Footer Card Container */}
         <div className="border border-white/10 rounded-[2.5rem] bg-white/[0.02] backdrop-blur-md p-8 lg:p-12 shadow-glass relative overflow-hidden mb-8">
@@ -130,7 +128,7 @@ export default function Footer({ onSelectCategory, onLogoClick }) {
                 {[
                   { label: 'Home', href: '/' },
                   { label: 'About Us', href: '/about' },
-                  { label: 'Why WECT', href: '/why-us' },
+                  { label: 'Why WECT', href: '/about#why-us' },
                   { label: 'Products', href: '/products' },
                   { label: 'Industries', href: '/industries' },
                   { label: 'Contact Us', href: '/contact' }

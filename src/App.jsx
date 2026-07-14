@@ -14,11 +14,9 @@ import ScrollHelper from './components/layout/ScrollHelper'
 import Home from './pages/Home'
 import AboutPage from './pages/AboutPage'
 import ProductsPage from './pages/ProductsPage'
-import WhyUsPage from './pages/WhyUsPage'
+
 import IndustriesPage from './pages/IndustriesPage'
 import ContactPage from './pages/ContactPage'
-import ManufacturingPage from './pages/ManufacturingPage'
-import GalleryPage from './pages/GalleryPage'
 import { productsData } from './components/sections/ToolingPortfolio'
 
 export default function App() {
@@ -151,11 +149,9 @@ export default function App() {
                 />
               } 
             />
-            <Route path="/why-us" element={<WhyUsPage />} />
+
             <Route path="/industries" element={<IndustriesPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/manufacturing" element={<ManufacturingPage />} />
-            <Route path="/gallery" element={<GalleryPage />} />
           </Routes>
         </main>
 

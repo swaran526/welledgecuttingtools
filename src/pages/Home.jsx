@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Target, ShieldCheck, Zap } from 'lucide-react'
 
 import Hero from '../components/sections/Hero'
-import AuthorizedDealers from '../components/sections/AuthorizedDealers'
+
 import ToolingPortfolio from '../components/sections/ToolingPortfolio'
-import WhyChooseUs from '../components/sections/WhyChooseUs'
+
 import Industries from '../components/sections/Industries'
 import BottomCTA from '../components/sections/BottomCTA'
 
@@ -23,13 +23,12 @@ export default function Home({ setSelectedProduct }) {
       {/* ── 1. Premium Hero ─────────────────────────────────── */}
       <Hero setSelectedProduct={setSelectedProduct} />
 
-      {/* ── 2. Official Authorized Dealers & Stats ─────────── */}
-      <AuthorizedDealers />
+
 
       {/* ── 3. About Teaser ──────────────────────────────────── */}
       <section className="py-20 lg:py-28 bg-transparent relative overflow-hidden border-t border-white/5">
         <div className="section-container relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
             {/* Left: Image */}
             <motion.div
@@ -62,7 +61,7 @@ export default function Home({ setSelectedProduct }) {
             >
               <div>
                 <span className="font-mono text-[10px] tracking-[0.2em] text-wect-red-light uppercase font-bold">01 // Our Story</span>
-                <h2 className="font-display font-black text-4xl lg:text-5xl text-white leading-[1.05] tracking-tight mt-3">
+                <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-white leading-[1.05] tracking-tight mt-3">
                   Precision Engineering
                   <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-wect-red-light">
@@ -71,7 +70,7 @@ export default function Home({ setSelectedProduct }) {
                 </h2>
               </div>
 
-              <p className="font-body text-white/60 text-lg leading-relaxed font-light">
+              <p className="font-body text-white/60 text-base sm:text-lg leading-relaxed font-light">
                 WECT brings decades of specialized experience in manufacturing ultra-high precision
                 carbide and cobalt cutting tools. We empower aerospace, automotive, and medical
                 industries with tooling that redefines durability and performance.
@@ -107,8 +106,7 @@ export default function Home({ setSelectedProduct }) {
       {/* ── 4. Product Portfolio ─────────────────────────────── */}
       <ToolingPortfolio setSelectedProduct={setSelectedProduct} />
 
-      {/* ── 5. Why Choose Us ─────────────────────────────────── */}
-      <WhyChooseUs />
+
 
       {/* ── 6. Industries ────────────────────────────────────── */}
       <Industries />

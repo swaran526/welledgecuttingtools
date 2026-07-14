@@ -6,16 +6,19 @@ export default function ScrollHelper() {
 
   useEffect(() => {
     if (hash) {
-      // Small delay to ensure the DOM is painted after route change
+      // Small delay to ensure DOM is painted after route change
       setTimeout(() => {
         const id = hash.replace('#', '');
         const element = document.getElementById(id);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 100);
+      }, 120);
     } else {
-      window.scrollTo(0, 0);
+      // Immediately jump to top — use both methods to ensure it works with Lenis
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }
   }, [pathname, hash]);
 
