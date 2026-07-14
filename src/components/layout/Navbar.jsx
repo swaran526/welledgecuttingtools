@@ -66,8 +66,8 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        {/* Top Info Bar */}
-        <div className={`w-full py-2 transition-all duration-500 border-b text-[10px] font-mono tracking-widest ${
+        {/* Top Info Bar — hidden on mobile, shown on sm+ */}
+        <div className={`hidden sm:block w-full py-2 transition-all duration-500 border-b text-[10px] font-mono tracking-widest ${
           isSolid
             ? 'bg-wect-navy-light/80 backdrop-blur-md border-white/5 text-steel-400'
             : 'bg-wect-navy/30 backdrop-blur-sm border-white/5 text-steel-300'

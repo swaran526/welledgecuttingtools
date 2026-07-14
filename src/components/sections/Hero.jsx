@@ -77,7 +77,7 @@ export default function Hero() {
 
   return (
     <section 
-      className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden bg-wect-navy pt-20 sm:pt-28 pb-10 sm:pb-12"
+      className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden bg-wect-navy pt-16 sm:pt-24 lg:pt-28 pb-10 sm:pb-12"
     >
       {/* Background Overlays */}
       <div className="absolute inset-0 z-0 pointer-events-none">
