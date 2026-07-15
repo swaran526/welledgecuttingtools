@@ -110,7 +110,7 @@ export default function Industries() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto space-y-4 mb-14"
+          className="text-center max-w-3xl mx-auto space-y-4 mb-8 sm:mb-14"
         >
           <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl uppercase tracking-tight text-white leading-none">
             Industries <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-wect-red-light">We Serve</span>
@@ -138,7 +138,7 @@ export default function Industries() {
               <motion.div
                 key={ind.name}
                 variants={cardVariants}
-                className="group relative bg-white/5 border border-white/10 rounded-2xl p-7 shadow-glass hover:shadow-glass-hover hover:-translate-y-1.5 hover:border-wect-red-light/35 transition-all duration-300 cursor-pointer overflow-hidden text-white"
+                className="group relative bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-7 shadow-glass hover:shadow-glass-hover hover:-translate-y-1.5 hover:border-wect-red-light/35 transition-all duration-300 cursor-pointer overflow-hidden text-white"
               >
                 {/* Background Image - brighter for better visibility */}
                 <div 

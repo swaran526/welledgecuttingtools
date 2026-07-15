@@ -22,7 +22,7 @@ export default function FindUs() {
   return (
     <section
       id="find-us"
-      className="bg-transparent text-white pt-8 pb-16 lg:pt-10 lg:pb-20 font-body relative overflow-hidden border-t border-white/5 scroll-mt-24 lg:scroll-mt-28"
+      className="bg-transparent text-white pt-6 pb-10 lg:pt-10 lg:pb-20 font-body relative overflow-hidden border-t border-white/5 scroll-mt-24 lg:scroll-mt-28"
     >
       <div 
         className="absolute inset-0 bg-blueprint-grid pointer-events-none z-0" 
@@ -35,7 +35,7 @@ export default function FindUs() {
 
         {/* Section Header */}
         <motion.div
-          className="text-center max-w-2xl mx-auto mb-16 space-y-4"
+          className="text-center max-w-2xl mx-auto mb-8 sm:mb-16 space-y-3"
           variants={headerVariants}
           initial="hidden"
           whileInView="visible"
@@ -60,7 +60,7 @@ export default function FindUs() {
 
           {/* Map (col-span-8) */}
           <motion.div
-            className="lg:col-span-8 relative w-full overflow-hidden border border-white/10 rounded-3xl shadow-glass group min-h-[460px] bg-white/5"
+            className="lg:col-span-8 relative w-full overflow-hidden border border-white/10 rounded-2xl sm:rounded-3xl shadow-glass group min-h-[280px] sm:min-h-[400px] lg:min-h-[460px] bg-white/5"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
@@ -121,7 +121,7 @@ export default function FindUs() {
 
           {/* Info Panel (col-span-4) */}
           <motion.div
-            className="lg:col-span-4 flex flex-col gap-6"
+            className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-4"
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.2 }}

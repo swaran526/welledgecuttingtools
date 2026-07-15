@@ -63,10 +63,10 @@ export default function Testimonials() {
         {/* Header */}
         <div className="text-center mb-14 space-y-4">
           <span className="font-mono text-[10px] tracking-[0.2em] text-wect-red-light uppercase font-bold">07 // Client Testimonials</span>
-          <h2 className="font-display font-black text-4xl sm:text-5xl tracking-tight text-white leading-[1.05] mt-2">
+          <h2 className="font-display font-black text-3xl sm:text-4xl sm:text-5xl tracking-tight text-white leading-[1.05] mt-2">
             Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-wect-red-light">Industry Leaders</span>
           </h2>
-          <p className="text-white/60 text-base max-w-md mx-auto font-light">
+          <p className="text-white/60 text-sm sm:text-base max-w-md mx-auto font-light">
             Global manufacturers rely on WECT for consistent precision and superior tool performance.
           </p>
         </div>
@@ -78,7 +78,7 @@ export default function Testimonials() {
             {/* Top color bar */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-wect-blue via-wect-red-light to-wect-blue" />
 
-            <div className="p-8 sm:p-12">
+            <div className="p-5 sm:p-8 sm:p-12">
               {/* Large quote mark */}
               <div className="absolute top-8 right-8 text-white/5 pointer-events-none select-none">
                 <Quote size={72} className="fill-current" />
@@ -106,12 +106,12 @@ export default function Testimonials() {
                   </div>
 
                   {/* Quote text */}
-                  <p className="text-white/80 text-base sm:text-lg font-body leading-relaxed italic font-light">
+                  <p className="text-white/80 text-sm sm:text-lg font-body leading-relaxed italic font-light">
                     "{testimonials[index].text}"
                   </p>
 
                   {/* Author */}
-                  <div className="border-t border-white/5 pt-5 flex items-center justify-between gap-4">
+                  <div className="border-t border-white/5 pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="flex items-center gap-4">
                       {/* Avatar */}
                       <div className="w-11 h-11 rounded-full bg-wect-blue flex items-center justify-center text-white font-display font-black text-sm shrink-0">

@@ -26,8 +26,8 @@ export default function BottomCTA() {
       {/* Top accent line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-wect-red/60 to-transparent" />
 
-      <div className="relative z-10 section-container py-16 lg:py-20">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+      <div className="relative z-10 section-container py-10 lg:py-20">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
           {/* Left: Copy */}
           <motion.div
@@ -44,7 +44,7 @@ export default function BottomCTA() {
               Precision <span className="text-wect-red-light">Together.</span>
             </h2>
 
-            <p className="text-white/50 text-base leading-relaxed max-w-lg font-light">
+            <p className="text-white/50 text-sm leading-relaxed max-w-lg font-light">
               Share your machining requirements with our engineering team. We design and manufacture precision carbide, PCD, and special cutting tools tailored to your application, ensuring maximum productivity and longer tool life.
             </p>
 
@@ -52,7 +52,7 @@ export default function BottomCTA() {
               <Link
                 to="/contact"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="inline-flex items-center justify-center gap-2.5 bg-wect-red hover:bg-wect-red-dark text-white font-display font-bold tracking-wide text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-glow-red transform hover:-translate-y-0.5 group cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 bg-wect-red hover:bg-wect-red-dark text-white font-display font-bold tracking-wide text-xs uppercase tracking-widest px-6 py-3 sm:px-8 sm:py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-glow-red transform hover:-translate-y-0.5 group cursor-pointer"
               >
                 Request a Quote
                 <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
@@ -100,7 +100,7 @@ export default function BottomCTA() {
               <a
                 key={label}
                 href={href}
-                className="flex items-center gap-5 bg-white/5 border border-white/10 rounded-3xl px-6 py-5 hover:bg-white/10 hover:border-wect-red-light/35 transition-all duration-300 group shadow-glass text-white"
+                className="flex items-center gap-3 sm:gap-5 bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl px-4 sm:px-6 py-4 sm:py-5 hover:bg-white/10 hover:border-wect-red-light/35 transition-all duration-300 group shadow-glass text-white"
               >
                 <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center shrink-0 group-hover:bg-wect-blue transition-colors">
                   <Icon size={18} className="text-white" />

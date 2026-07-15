@@ -82,46 +82,64 @@ const reasons = [
 
 const timelineData = [
   {
-    year: '2014',
+    year: '2021',
     title: 'FOUNDING',
     desc: 'WECT was established with a focus on manufacturing high-precision industrial tooling solutions.',
-    icon: <Milestone size={16} className="text-white" />,
-    color: '#2F3F91',
-  },
-  {
-    year: '2017',
-    title: 'FACILITY UPGRADE',
-    desc: 'Commissioned a state-of-the-art CNC grinding plant with high-precision measuring and monitoring equipment.',
-    icon: <Activity size={16} className="text-white" />,
-    color: '#A81F3D',
-  },
-  {
-    year: '2020',
-    title: 'PORTFOLIO EXPANSION',
-    desc: 'Introduced advanced carbide and cobalt end mills, reamers, and custom-designed form tooling.',
-    icon: <Factory size={16} className="text-white" />,
-    color: '#2F3F91',
+    color: '#2E3F7A',
+    textColor: 'text-white',
+    x: 180,
+    y: 260,
+    align: 'top'
   },
   {
     year: '2022',
-    title: 'ROBOTIC AUTOMATION',
-    desc: 'Integrated advanced robotic autoloaders to scale production efficiency and ensure absolute batch consistency.',
-    icon: <Cpu size={16} className="text-white" />,
-    color: '#A81F3D',
+    title: 'FACILITY UPGRADE',
+    desc: 'Commissioned a state-of-the-art CNC grinding plant with high-precision measuring and monitoring equipment.',
+    color: '#E5213D',
+    textColor: 'text-white',
+    x: 410,
+    y: 140,
+    align: 'bottom'
+  },
+  {
+    year: '2023',
+    title: 'PORTFOLIO EXPANSION',
+    desc: 'Introduced advanced carbide and cobalt end mills, reamers, and custom-designed form tooling.',
+    color: '#2E3F7A',
+    textColor: 'text-white',
+    x: 640,
+    y: 260,
+    align: 'top'
   },
   {
     year: '2024',
-    title: 'GLOBAL EXPORTS',
-    desc: 'Achieved ISO 9001:2015 certification and expanded export networks to major precision machining hubs globally.',
-    icon: <Award size={16} className="text-white" />,
-    color: '#2F3F91',
+    title: 'ROBOTIC AUTOMATION',
+    desc: 'Integrated advanced robotic autoloaders to scale production efficiency and ensure absolute batch consistency.',
+    color: '#E5213D',
+    textColor: 'text-white',
+    x: 870,
+    y: 140,
+    align: 'bottom'
   },
   {
-    year: '2026',
+    year: '2025',
+    title: 'GLOBAL EXPORTS',
+    desc: 'Achieved ISO 9001:2015 certification and expanded export networks to major precision machining hubs globally.',
+    color: '#2E3F7A',
+    textColor: 'text-white',
+    x: 1100,
+    y: 260,
+    align: 'top'
+  },
+  {
+    year: 'Present',
     title: 'FUTURE DIRECTIVES',
     desc: 'Deploying AI-driven custom geometry design systems to engineer the next generation of high-efficiency machining tools.',
-    icon: <Orbit size={16} className="text-white" />,
-    color: '#A81F3D',
+    color: '#E5213D',
+    textColor: 'text-white',
+    x: 1330,
+    y: 140,
+    align: 'bottom'
   },
 ]
 
@@ -162,6 +180,33 @@ const cardStagger = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.07 } },
 }
+
+const timelinePathVariants = {
+  hidden: { pathLength: 0, opacity: 0 },
+  visible: {
+    pathLength: 1,
+    opacity: 1,
+    transition: { duration: 1.8, ease: "easeInOut" }
+  }
+}
+
+const timelineCalloutVariants = (idx, isTop) => ({
+  hidden: { opacity: 0, y: isTop ? 20 : -20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 100, damping: 15, delay: idx * 0.15 + 0.3 }
+  }
+})
+
+const timelineCircleVariants = (idx) => ({
+  hidden: { scale: 0, opacity: 0 },
+  visible: {
+    scale: 1,
+    opacity: 1,
+    transition: { type: "spring", stiffness: 200, damping: 12, delay: idx * 0.15 }
+  }
+})
 
 export default function About() {
   const [hoveredIndex, setHoveredIndex] = useState(null)
@@ -214,17 +259,16 @@ export default function About() {
               variants={fadeUp}
               className="text-white/60 text-sm sm:text-base font-light max-w-2xl mx-auto leading-relaxed border-t border-white/5 pt-4"
             >
-              Bangalore-based precision cutting tool manufacturer — engineering cobalt &amp; carbide
-              tooling that drives aerospace, automotive, and medical industries forward.
+              Engineering precision cutting solutions trusted by manufacturers where accuracy, performance, and reliability matter most.
             </motion.p>
           </motion.div>
 
           {/* Two-column layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
 
             {/* Left — narrative + stats */}
             <motion.div
-              className="lg:col-span-6 space-y-4"
+              className="lg:col-span-6 flex flex-col justify-between space-y-4"
               variants={stagger}
               initial="hidden"
               whileInView="visible"
@@ -236,13 +280,13 @@ export default function About() {
                   <div className="w-[3px] h-full min-h-[60px] bg-gradient-to-b from-wect-red-light to-wect-blue rounded-full shrink-0 mt-1" />
                   <div>
                     <h3 className="font-display font-black uppercase leading-none tracking-tight text-white text-2xl sm:text-3xl">
-                      Built for{' '}
+                      Made for{' '}
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-wect-red-light to-rose-400">
-                        Precision.
+                        the Micron.
                       </span>
                     </h3>
                     <p className="font-display font-black uppercase text-lg sm:text-xl tracking-wide text-white/40 mt-1">
-                      Designed to Last.
+                      Trusted on the Machine.
                     </p>
                   </div>
                 </div>
@@ -253,15 +297,10 @@ export default function About() {
                 className="space-y-4 text-white/60 text-sm sm:text-base leading-relaxed font-light"
               >
                 <p>
-                  Well Edge Cutting Tools (WECT) is a Bangalore-based manufacturer of premium solid
-                  carbide, cobalt, PCD, and PCBN cutting tools. Powered by state-of-the-art
-                  multi-axis CNC grinding centres and advanced metrology, every tool is held to
-                  micron-level tolerances — batch after batch, order after order.
+                  Well Edge Cutting Tools (WECT) is a Bangalore-based manufacturer of premium solid carbide, cobalt, PCD cutting tools, and PCBN inserts. Powered by advanced multi-axis CNC grinding centers and precision metrology systems, every product is manufactured to micron-level tolerances, ensuring exceptional accuracy, consistency, and dependable performance across every production batch.
                 </p>
                 <p>
-                  We combine ultra-fine grain tungsten carbide substrates with advanced PVD and CVD
-                  coating technologies to deliver tools that run harder, last longer, and produce
-                  better surface finishes than standard alternatives.
+                  We combine ultra-fine grain tungsten carbide substrates with advanced PVD and CVD coating technologies to engineer cutting solutions that deliver longer tool life, higher machining efficiency, superior surface finishes, and reliable performance in demanding industrial applications.
                 </p>
               </motion.div>
 
@@ -271,10 +310,10 @@ export default function About() {
                 className="grid grid-cols-2 sm:grid-cols-4 gap-2 border-y border-white/5 py-4"
               >
                 {[
-                  { value: '2014', label: 'Founded' },
-                  { value: '500+', label: 'Products' },
-                  { value: '6+', label: 'Industries' },
-                  { value: 'ISO', label: '9001:2015' },
+                  { value: '2021', label: 'Established' },
+                  { value: '100+', label: 'Precision Tools' },
+                  { value: '20+', label: 'Industries Served' },
+                  { value: 'ISO', label: '9001:2015 Certified' },
                 ].map((stat) => (
                   <div
                     key={stat.label}
@@ -302,7 +341,7 @@ export default function About() {
               {/* Rotated glow shadow — matches Hero image card */}
               <div className="absolute inset-0 bg-gradient-to-tr from-wect-blue/20 to-wect-red/20 rounded-2xl transform rotate-2 scale-[1.02] blur-sm pointer-events-none" />
 
-              <div className="relative w-full aspect-[4/3] sm:aspect-[3/2] max-h-[380px] bg-white/5 border border-white/10 rounded-2xl overflow-hidden shadow-glass z-10 transition-all duration-300 hover:border-wect-red-light/30">
+              <div className="relative w-full h-full min-h-[300px] bg-white/5 border border-white/10 rounded-2xl overflow-hidden shadow-glass z-10 transition-all duration-300 hover:border-wect-red-light/30">
                 <AnimatePresence mode="popLayout">
                   <motion.img
                     key={storyIndex}
@@ -320,14 +359,13 @@ export default function About() {
                 <div className="absolute inset-0 p-8 flex flex-col justify-end z-10 pointer-events-none">
                   <div className="space-y-1">
                     <span className="font-mono text-[8px] tracking-widest text-wect-red-light uppercase">
-                      METALLURGY
+                      PRECISION ENGINEERING
                     </span>
                     <p className="text-white font-display font-black uppercase text-base sm:text-lg tracking-wide leading-tight">
-                      Premium Carbide Metallurgy
+                      Micron-Level Manufacturing Excellence
                     </p>
                     <p className="text-white/50 text-xs leading-relaxed max-w-sm">
-                      Designed, ground, and inspected to deliver superior surface finishes at extreme
-                      feed velocities.
+                      Every cutting tool is precision-ground, coated, and quality-inspected to deliver exceptional accuracy, extended tool life, and consistent machining performance.
                     </p>
                   </div>
                 </div>
@@ -338,148 +376,136 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── SECTION 2: TIMELINE (WINDING PATH) ───────────────── */}
-      <section className="relative w-full bg-wect-navy text-white py-12 lg:py-14 overflow-hidden border-t border-white/5">
+      {/* ── SECTION 2: TIMELINE ───────────────────────────────── */}
+      <section className="relative w-full bg-wect-navy text-white py-4 lg:py-6 overflow-hidden border-t border-white/5">
         <div className="absolute inset-0 bg-blueprint-grid opacity-[0.04] pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-wect-blue/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-wect-blue/5 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="relative z-10 section-container">
 
           {/* Header */}
           <motion.div
-            className="text-center max-w-xl mx-auto mb-16"
+            className="text-center max-w-xl mx-auto mb-8 sm:mb-12"
             variants={stagger}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <motion.span
-              variants={fadeUp}
-              className="font-mono text-[10px] tracking-[0.2em] text-wect-red-light uppercase font-bold"
-            >
-              TIMELINE
-            </motion.span>
+            <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-2">
+              <span className="h-px w-8 bg-gradient-to-r from-transparent to-wect-red-light" />
+              <span className="font-mono text-[9px] tracking-[0.3em] text-wect-red-light uppercase font-bold">TIMELINE</span>
+              <span className="h-px w-8 bg-gradient-to-l from-transparent to-wect-red-light" />
+            </motion.div>
             <motion.h3
               variants={fadeUp}
-              className="text-2xl sm:text-3xl font-display font-black uppercase text-white tracking-tight mt-1"
+              className="text-2xl sm:text-3xl lg:text-4xl font-display font-black uppercase text-white tracking-tight"
             >
               WECT{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-wect-red-light">
-                Evolution
-              </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-wect-red-light">Evolution</span>
             </motion.h3>
           </motion.div>
 
-          {/* Winding Path Timeline */}
-          <div className="relative w-full overflow-x-auto pb-6">
-            <div className="relative min-w-[820px] mx-auto" style={{ height: '340px' }}>
+          {/* Horizontal Drag/Scroll Canvas Layout */}
+          <div className="overflow-x-auto pb-6 pt-6 scrollbar-thin scrollbar-thumb-wect-blue/20 scrollbar-track-transparent">
+            <div className="relative min-w-[1200px] lg:min-w-0 lg:w-full h-[340px] px-12">
 
-              {/* SVG winding path */}
-              <svg
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                viewBox="0 0 820 340"
-                preserveAspectRatio="none"
-                fill="none"
-              >
-                {/* Glow blur path */}
+              {/* Dynamic SVG Wave Connector Line */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 400" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="track-grad" x1="0%" y1="50%" x2="100%" y2="50%">
+                    <stop offset="0%" stopColor="#2E3F7A" />
+                    <stop offset="50%" stopColor="#C41230" />
+                    <stop offset="100%" stopColor="#E5213D" />
+                  </linearGradient>
+
+                  {/* Arrowhead marker for the track */}
+                  <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#E5213D" />
+                  </marker>
+                </defs>
+
+                {/* Thick background track trail */}
                 <path
-                  d="M 60 260 C 120 260, 140 180, 200 180 C 260 180, 280 260, 340 260 C 400 260, 420 180, 480 180 C 540 180, 560 260, 620 260 C 680 260, 700 180, 760 180"
-                  stroke="url(#pathGlow)"
-                  strokeWidth="6"
+                  d="M 80 260 L 180 260 L 410 140 L 640 260 L 870 140 L 1100 260 L 1330 140 L 1430 140"
+                  fill="none"
+                  stroke="#1E293B"
+                  strokeWidth="20"
                   strokeLinecap="round"
-                  filter="url(#blur)"
+                  strokeLinejoin="round"
                   opacity="0.4"
                 />
-                {/* Main path */}
-                <path
-                  d="M 60 260 C 120 260, 140 180, 200 180 C 260 180, 280 260, 340 260 C 400 260, 420 180, 480 180 C 540 180, 560 260, 620 260 C 680 260, 700 180, 760 180"
-                  stroke="url(#pathGradient)"
-                  strokeWidth="2.5"
+
+                {/* Animated colored core track trail */}
+                <motion.path
+                  d="M 80 260 L 180 260 L 410 140 L 640 260 L 870 140 L 1100 260 L 1330 140 L 1430 140"
+                  fill="none"
+                  stroke="url(#track-grad)"
+                  strokeWidth="10"
                   strokeLinecap="round"
-                  strokeDasharray="6 4"
+                  strokeLinejoin="round"
+                  markerEnd="url(#arrow)"
+                  variants={timelinePathVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
                 />
-                <defs>
-                  <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#2F3F91" />
-                    <stop offset="50%" stopColor="#A81F3D" />
-                    <stop offset="100%" stopColor="#2F3F91" />
-                  </linearGradient>
-                  <linearGradient id="pathGlow" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#2F3F91" />
-                    <stop offset="50%" stopColor="#A81F3D" />
-                    <stop offset="100%" stopColor="#2F3F91" />
-                  </linearGradient>
-                  <filter id="blur">
-                    <feGaussianBlur stdDeviation="4" />
-                  </filter>
-                </defs>
               </svg>
 
-              {/* Milestone nodes + cards */}
-              {[
-                { ...timelineData[0], x: 60, y: 260, above: false },
-                { ...timelineData[1], x: 200, y: 180, above: true },
-                { ...timelineData[2], x: 340, y: 260, above: false },
-                { ...timelineData[3], x: 480, y: 180, above: true },
-                { ...timelineData[4], x: 620, y: 260, above: false },
-                { ...timelineData[5], x: 760, y: 180, above: true },
-              ].map((node, idx) => (
-                <motion.div
-                  key={idx}
-                  className="absolute"
-                  style={{ left: `${node.x}px`, top: `${node.y}px`, transform: 'translate(-50%, -50%)' }}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  {/* Connector line from dot to card */}
-                  <div
-                    className="absolute left-1/2 -translate-x-[0.5px] w-[1px] bg-white/15"
-                    style={{
-                      height: '52px',
-                      top: node.above ? 'auto' : '18px',
-                      bottom: node.above ? '18px' : 'auto',
-                    }}
-                  />
+              {/* Timeline Nodes & Callouts */}
+              <div className="absolute inset-0 w-full h-full pointer-events-none">
+                {timelineData.map((node, idx) => {
+                  const isTop = node.align === "top";
 
-                  {/* Glowing dot node */}
-                  <div
-                    className="relative z-10 w-5 h-5 rounded-full border-2 border-white/30 shadow-lg flex items-center justify-center"
-                    style={{ backgroundColor: node.color, boxShadow: `0 0 12px ${node.color}60` }}
-                  >
-                    <div className="w-2 h-2 rounded-full bg-white/80" />
-                  </div>
+                  return (
+                    <div
+                      key={idx}
+                      className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20 group pointer-events-none"
+                      style={{ left: `${(node.x / 1500) * 100}%`, top: `${(node.y / 400) * 100}%` }}
+                    >
 
-                  {/* Info card — floats above or below the dot */}
-                  <motion.div
-                    className="absolute left-1/2 -translate-x-1/2 w-[168px] bg-white/[0.04] border border-white/10 rounded-2xl p-4 shadow-glass hover:border-wect-red-light/40 hover:bg-white/[0.07] transition-all duration-300 group cursor-default"
-                    style={{ top: node.above ? 'auto' : '72px', bottom: node.above ? '72px' : 'auto' }}
-                    initial={{ opacity: 0, y: node.above ? 10 : -10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: idx * 0.12 + 0.15 }}
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <div
-                        className="w-6 h-6 rounded-lg flex items-center justify-center text-white shrink-0"
-                        style={{ backgroundColor: node.color }}
+                      {/* Animated Floating Text Callout Panel (aligned above or below the node) */}
+                      <motion.div
+                        className={`absolute w-72 h-[110px] flex flex-col justify-start items-center text-center pointer-events-auto ${
+                          isTop ? 'bottom-[86px]' : 'top-[86px]'
+                        }`}
+                        variants={timelineCalloutVariants(idx, isTop)}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
                       >
-                        <span className="scale-75">{node.icon}</span>
-                      </div>
-                      <span className="font-display font-black text-base text-white group-hover:text-wect-red-light transition-colors">
-                        {node.year}
-                      </span>
+                        <div className="space-y-1.5 w-full text-center">
+                          <span className="font-display font-black text-2xl tracking-wider block transition-transform duration-300 group-hover:scale-105"
+                            style={{ color: node.color }}
+                          >
+                            {node.year}
+                          </span>
+                          <h4 className="text-xs font-display font-black uppercase tracking-widest text-white block transition-colors duration-300 group-hover:text-wect-red-light">
+                            {node.title}
+                          </h4>
+                          <p className="text-white/50 text-[11px] font-medium leading-relaxed max-w-[230px] mx-auto block transition-colors duration-300 group-hover:text-white/80">
+                            {node.desc}
+                          </p>
+                        </div>
+                      </motion.div>
+
+                      {/* Circle Node */}
+                      <motion.div
+                        className="w-14 h-14 rounded-full border-[6px] border-white/5 flex items-center justify-center shadow-2xl relative cursor-pointer transition-all duration-300 group-hover:scale-110 group-hover:border-wect-red-light bg-wect-navy z-30 pointer-events-auto"
+                        style={{ borderColor: `${node.color}50`, backgroundColor: '#080E1E' }}
+                        variants={timelineCircleVariants(idx)}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                      >
+                        <span className={`font-display font-black text-sm tracking-tight ${node.textColor}`}>
+                          {String(idx + 1).padStart(2, '0')}
+                        </span>
+                      </motion.div>
+
                     </div>
-                    <h4 className="font-display font-bold text-[10px] uppercase tracking-widest text-wect-red-light mb-1">
-                      {node.title}
-                    </h4>
-                    <p className="text-[10px] text-white/45 leading-relaxed font-light">
-                      {node.desc}
-                    </p>
-                  </motion.div>
-                </motion.div>
-              ))}
+                  );
+                })}
+              </div>
 
             </div>
           </div>
