@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import Lenis from 'lenis'
 
 import Navbar from './components/layout/Navbar'
@@ -20,6 +20,7 @@ import ContactPage from './pages/ContactPage'
 import { productsData } from './components/sections/ToolingPortfolio'
 
 export default function App() {
+  const navigate = useNavigate()
   const [activeFilter, setActiveFilter] = useState('ALL PRODUCTS')
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -27,6 +28,14 @@ export default function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [showCursorGlow, setShowCursorGlow] = useState(false)
   const [showBackToTop, setShowBackToTop] = useState(false)
+  const [modalImgIndex, setModalImgIndex] = useState(0)
+
+  // Reset modal image selector when product changes
+  useEffect(() => {
+    if (selectedProduct) {
+      setModalImgIndex(0)
+    }
+  }, [selectedProduct])
 
   // Initialize Lenis smooth scroll & scroll listener
   useEffect(() => {
@@ -37,6 +46,8 @@ export default function App() {
       gestureOrientation: 'vertical',
       smoothWheel: true,
     })
+
+    window.lenis = lenis
 
     function raf(time) {
       lenis.raf(time)
@@ -52,6 +63,7 @@ export default function App() {
 
     return () => {
       lenis.destroy()
+      window.lenis = null
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
@@ -75,9 +87,12 @@ export default function App() {
     }
   }, [])
 
-  const handleCloseModal = () => {
-    setSelectedProduct(null)
-    setActiveFilter('ALL PRODUCTS')
+  const handleSelectProduct = (product) => {
+    setSelectedProduct(product)
+    if (window.location.pathname !== '/products') {
+      navigate('/products')
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const handleSelectCategory = (category) => {
@@ -93,7 +108,7 @@ export default function App() {
     }
 
     if (window.location.pathname !== '/products') {
-      window.location.href = '/products';
+      navigate('/products');
     } else {
       const el = document.getElementById('products')
       if (el) {
@@ -113,7 +128,7 @@ export default function App() {
   }, [])
 
   return (
-    <Router>
+    <>
       <ScrollHelper />
       <AnimatePresence mode="wait">
         {loading && (
@@ -135,7 +150,7 @@ export default function App() {
           <Routes>
             <Route 
               path="/" 
-              element={<Home setSelectedProduct={setSelectedProduct} />} 
+              element={<Home setSelectedProduct={handleSelectProduct} />} 
             />
             <Route path="/about" element={<AboutPage />} />
             <Route 
@@ -145,7 +160,7 @@ export default function App() {
                   activeFilter={activeFilter} 
                   setActiveFilter={setActiveFilter} 
                   selectedProduct={selectedProduct}
-                  setSelectedProduct={setSelectedProduct}
+                  setSelectedProduct={handleSelectProduct}
                 />
               } 
             />
@@ -156,76 +171,6 @@ export default function App() {
         </main>
 
         <Footer onSelectCategory={handleSelectCategory} onLogoClick={() => setShowLogoModal(true)} />
-        
-        {/* Product Details Modal */}
-        <AnimatePresence>
-          {selectedProduct && (
-            <div 
-              onClick={handleCloseModal}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-md p-4 cursor-pointer"
-            >
-              <motion.div
-                onClick={(e) => e.stopPropagation()}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white border border-slate-100 rounded-3xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl cursor-default"
-              >
-                {/* Close Button */}
-                <button
-                  onClick={handleCloseModal}
-                  className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 transition-colors p-1 cursor-pointer"
-                  aria-label="Close modal"
-                >
-                  <X size={24} />
-                </button>
-
-                {/* Modal Header */}
-                <div className="mb-6 border-b border-slate-100 pb-4 pr-8">
-                  <span className="font-mono text-xs text-wect-red tracking-widest uppercase block mb-1">
-                    {selectedProduct.category}
-                  </span>
-                  <h3 className="text-2xl font-display font-black uppercase text-wect-blue tracking-wide">
-                    {selectedProduct.title}
-                  </h3>
-                </div>
-
-                {/* Single Product Image */}
-                <div className="w-full h-[280px] sm:h-[360px] md:h-[420px] bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden relative mb-6 flex items-center justify-center">
-                  <img
-                    src={selectedProduct.img}
-                    alt={selectedProduct.title}
-                    className="max-h-full max-w-full object-contain p-6"
-                  />
-                </div>
-
-                {/* Main Product Description */}
-                <div className="space-y-4">
-                  <h4 className="font-mono text-xs text-wect-red tracking-wider uppercase">
-                    // Tool Specifications
-                  </h4>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-body">
-                    {selectedProduct.desc}
-                  </p>
-                  <div className="pt-6 border-t border-slate-100 flex justify-end">
-                    <button
-                      className="btn-primary py-3 px-6 text-xs uppercase font-mono tracking-wider"
-                      onClick={() => {
-                        handleCloseModal();
-                        window.location.href = '/contact';
-                      }}
-                    >
-                      Request Technical Specifications
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>
-        
-        {/* Logo Modal */}
         <AnimatePresence>
           {showLogoModal && (
             <div 
@@ -288,7 +233,13 @@ export default function App() {
         <AnimatePresence>
           {showBackToTop && (
             <motion.button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => {
+                if (window.lenis) {
+                  window.lenis.scrollTo(0)
+                } else {
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }
+              }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
@@ -319,6 +270,6 @@ export default function App() {
           </svg>
         </motion.a>
       </div>
-    </Router>
+    </>
   )
 }

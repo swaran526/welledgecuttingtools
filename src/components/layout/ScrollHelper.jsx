@@ -11,14 +11,22 @@ export default function ScrollHelper() {
         const id = hash.replace('#', '');
         const element = document.getElementById(id);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          if (window.lenis) {
+            window.lenis.scrollTo(element, { duration: 1.2 });
+          } else {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
         }
-      }, 120);
+      }, 150);
     } else {
-      // Immediately jump to top — use both methods to ensure it works with Lenis
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      // Immediately jump to top using Lenis if active, otherwise standard jump
+      if (window.lenis) {
+        window.lenis.scrollTo(0, { immediate: true });
+      } else {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
     }
   }, [pathname, hash]);
 

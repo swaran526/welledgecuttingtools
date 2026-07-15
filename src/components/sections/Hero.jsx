@@ -22,7 +22,16 @@ import img9 from '../../assets/images/hero/hero_9.png';
 import img10 from '../../assets/images/hero/hero_10.png';
 
 const slideshowImages = [
-  img1, img2, img3, img4, img5, img6, img7, img8, img9, img10
+  { src: img1, name: 'Solid Carbide End Mills', category: 'SOLID CARBIDE' },
+  { src: img2, name: 'PCD Special Boring Bars', category: 'PCD TOOLING' },
+  { src: img3, name: 'Customized Profile Cutters', category: 'CUSTOM GEOMETRY' },
+  { src: img4, name: 'Fine Boring Guide Pad Tools', category: 'FINE BORING' },
+  { src: img5, name: 'Cermet & Carbide Reamers', category: 'ROTARY TOOLS' },
+  { src: img6, name: 'Hobs & Firtree Cutters', category: 'GEAR HOBBING' },
+  { src: img7, name: 'PCD & PCBN Special Inserts', category: 'SPECIAL INSERTS' },
+  { src: img8, name: 'Micro End Mills & Drills', category: 'MICRO TOOLING' },
+  { src: img9, name: 'AlTiN Coated End Mills', category: 'COATED TOOLING' },
+  { src: img10, name: 'Customized Form Tools', category: 'CUSTOM GEOMETRY' },
 ];
 
 export default function Hero() {
@@ -87,7 +96,7 @@ export default function Hero() {
         {/* Blueprint fine grid helper */}
         <div 
           className="absolute inset-0 bg-blueprint-grid opacity-[0.06]" 
-          style={{ maskImage: 'radial-gradient(circle at 50% 50%, black, transparent 80%)' }} 
+          style={{ maskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)' }} 
         />
         
         {/* Soft glowing ambient spots */}
@@ -122,7 +131,7 @@ export default function Hero() {
             </div>
 
             {/* Technical Specifications checklist row */}
-            <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 sm:gap-3 border-y border-white/5 py-3 sm:py-4 text-white/50 text-[9px] sm:text-[10px] font-mono tracking-wider uppercase select-none max-w-xl">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 border-y border-white/5 py-3 sm:py-4 text-white/50 text-[9px] sm:text-[10px] font-mono tracking-wider uppercase select-none max-w-xl">
               <div className="flex items-center gap-2">
                 <Activity size={10} className="text-wect-red-light shrink-0" />
                 <span>SOLID CARBIDE & PCD MATRIX</span>
@@ -201,12 +210,12 @@ export default function Hero() {
             {/* Rotated background gradient shadow */}
             <div className="absolute inset-0 bg-gradient-to-tr from-wect-blue/20 to-wect-red/20 rounded-[2.5rem] transform rotate-2 scale-[1.02] blur-sm pointer-events-none" />
             
-            <div className="relative w-full aspect-[4/3] sm:aspect-[1.1] lg:aspect-[1.05] xl:aspect-[1.15] bg-white/5 border border-white/10 rounded-[2.5rem] overflow-hidden shadow-glass z-10 transition-all duration-300 hover:border-wect-red-light/30 group">
+             <div className="relative w-full aspect-[4/3] sm:aspect-[1.1] lg:aspect-[1.05] xl:aspect-[1.15] bg-white/5 border border-white/10 rounded-[2.5rem] overflow-hidden shadow-glass z-10 transition-all duration-300 hover:border-wect-red-light/30 group">
               <AnimatePresence mode="popLayout">
                 <motion.img
                   key={slideshowIndex}
-                  src={slideshowImages[slideshowIndex]}
-                  alt="WECT precision machining"
+                  src={slideshowImages[slideshowIndex].src}
+                  alt={slideshowImages[slideshowIndex].name}
                   className="absolute inset-0 w-full h-full object-cover brightness-[0.55] group-hover:brightness-[0.45] transition-all duration-500"
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -215,13 +224,45 @@ export default function Hero() {
                 />
               </AnimatePresence>
 
-              <div className="absolute inset-0 p-8 flex flex-col justify-end z-10 pointer-events-none">
-                <div className="space-y-1">
-                  <span className="font-mono text-[8px] tracking-widest text-wect-red-light uppercase">METALLURGY</span>
-                  <p className="text-white font-display font-black uppercase text-base sm:text-lg tracking-wide leading-tight">
-                    High-Performance CNC Tooling
-                  </p>
+              {/* Laser Scan Animation Line */}
+              <div 
+                className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-wect-red-light/50 to-transparent pointer-events-none z-20"
+                style={{
+                  top: '0%',
+                  animation: 'scanLine 4s linear infinite'
+                }}
+              />
+
+              {/* Creative HUD Overlay Details */}
+              <div className="absolute inset-0 p-8 flex flex-col justify-end z-10 pointer-events-none select-none">
+
+                {/* Center target crosshair alignment */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center opacity-[0.15]">
+                  <div className="w-12 h-12 rounded-full border border-dashed border-white flex items-center justify-center animate-spin" style={{ animationDuration: '24s' }}>
+                    <div className="w-6 h-6 rounded-full border border-dotted border-white" />
+                  </div>
+                  <div className="absolute w-4 h-[1px] bg-white" />
+                  <div className="absolute h-4 w-[1px] bg-white" />
                 </div>
+
+                {/* Bottom Row: Dynamic Text Description */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={slideshowIndex}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.35, ease: 'easeOut' }}
+                    className="space-y-1"
+                  >
+                    <span className="font-mono text-[8px] tracking-widest text-wect-red-light uppercase">
+                      {slideshowImages[slideshowIndex].category}
+                    </span>
+                    <p className="text-white font-display font-black uppercase text-base sm:text-lg tracking-wide leading-tight">
+                      {slideshowImages[slideshowIndex].name}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
           </motion.div>

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Phone, Mail, Send, CheckCircle2, MessageCircle, MapPin } from 'lucide-react'
+import { Phone, Mail, Send, CheckCircle2, MessageCircle, MapPin, XCircle } from 'lucide-react'
 
 const contactDetails = [
   { 
@@ -27,16 +27,16 @@ const contactDetails = [
 ]
 
 const productCategories = [
-  'Carbide End Mills',
-  'Cobalt End Mills',
-  'Slot Drills',
-  'Ball Nose End Mills',
-  'Roughing End Mills',
-  'Drill Bits',
-  'Reamers',
-  'Taps',
-  'Milling Cutters',
-  'Custom Cutting Tools'
+  'Solid Carbide Tools',
+  'Customized Form Tools',
+  'Cermet, PCD & Carbide Reamers',
+  'PCD Boring Tools',
+  'Hob & Firtree',
+  'PCD & PCBN Inserts',
+  'Fine Boring Guide Pad Tools',
+  'SPL PCD Wiper Cartridge',
+  'Micro Tools & Blank Preparation',
+  'Customized Form Cutters',
 ]
 
 const headerVariants = {
@@ -52,17 +52,98 @@ const headerItemVariants = {
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState(null)
+  
   const [form, setForm] = useState({
     name: '', company: '', email: '', phone: '', toolType: '', message: ''
   })
+  
+  const [errors, setErrors] = useState({})
+  const [touched, setTouched] = useState({})
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
+  const validateField = (name, value) => {
+    let err = ''
+    if (name === 'name' && !value.trim()) {
+      err = 'Name is required'
+    } else if (name === 'company' && !value.trim()) {
+      err = 'Company name is required'
+    } else if (name === 'email') {
+      if (!value.trim()) {
+        err = 'Email is required'
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        err = 'Invalid email address'
+      }
+    } else if (name === 'phone' && value.trim()) {
+      if (!/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/.test(value)) {
+        err = 'Invalid phone number format'
+      }
+    }
+    return err
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setForm(prev => ({ ...prev, [name]: value }))
+    if (touched[name]) {
+      const err = validateField(name, value)
+      setErrors(prev => ({ ...prev, [name]: err }))
+    }
+  }
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target
+    setTouched(prev => ({ ...prev, [name]: true }))
+    const err = validateField(name, value)
+    setErrors(prev => ({ ...prev, [name]: err }))
+  }
+
+  const getInputClass = (fieldName) => {
+    const isTouched = touched[fieldName]
+    const hasError = errors[fieldName]
+    
+    let base = "w-full bg-[#050912] border text-white text-xs px-4 py-3.5 rounded-xl outline-none transition-all duration-300 focus:ring-0 "
+    
+    if (isTouched && hasError) {
+      return base + "border-wect-red-light focus:border-wect-red-light focus:shadow-[0_0_12px_rgba(168,31,61,0.35)]"
+    }
+    if (isTouched && !hasError && form[fieldName].trim()) {
+      return base + "border-emerald-500/50 focus:border-emerald-500 focus:shadow-[0_0_12px_rgba(16,185,129,0.25)]"
+    }
+    return base + "border-white/10 focus:border-wect-red-light focus:shadow-[0_0_12px_rgba(168,31,61,0.25)]"
+  }
+
+  const renderError = (fieldName) => {
+    if (touched[fieldName] && errors[fieldName]) {
+      return (
+        <span className="text-[10px] text-wect-red-light font-mono mt-1.5 block">
+          {errors[fieldName]}
+        </span>
+      )
+    }
+    return null
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setIsSubmitting(true)
+    setSubmitError(null)
 
-    // Simulate submission or connect to Web3Forms
+    // Validate all fields on submit
+    const newErrors = {}
+    const fieldsToValidate = ['name', 'company', 'email', 'phone']
+    fieldsToValidate.forEach(key => {
+      const err = validateField(key, form[key])
+      if (err) newErrors[key] = err
+    })
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      const allTouched = {}
+      fieldsToValidate.forEach(key => { allTouched[key] = true })
+      setTouched(allTouched)
+      return
+    }
+
+    setIsSubmitting(true)
     const accessKey = import.meta.env.VITE_WEB3FORMS_KEY || 'YOUR_API_KEY_HERE'
 
     if (!accessKey || accessKey === 'YOUR_API_KEY_HERE') {
@@ -98,11 +179,11 @@ export default function Contact() {
       if (result.success) {
         setSubmitted(true)
       } else {
-        alert(result.message || 'Something went wrong. Please try again.')
+        setSubmitError(result.message || 'Submission failed. Please try again.')
       }
     } catch (error) {
       console.error('Web3Forms Error:', error)
-      alert('Failed to send email. Please try again.')
+      setSubmitError('Failed to send request. Check your internet connection.')
     } finally {
       setIsSubmitting(false)
     }
@@ -111,13 +192,13 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="bg-transparent text-white py-16 lg:py-20 font-body relative overflow-hidden border-t border-white/5"
+      className="bg-transparent text-white pt-16 pb-4 lg:pt-20 lg:pb-6 font-body relative overflow-hidden border-t border-white/5"
     >
       <div 
         className="absolute inset-0 bg-blueprint-grid pointer-events-none z-0" 
         style={{ 
-          maskImage: 'radial-gradient(circle at 50% 50%, black 20%, transparent 70%)', 
-          WebkitMaskImage: 'radial-gradient(circle at 50% 50%, black 20%, transparent 70%)' 
+          maskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)', 
+          WebkitMaskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)' 
         }} 
       />
       <div className="relative max-w-[92rem] mx-auto px-6 z-10">
@@ -200,15 +281,17 @@ export default function Contact() {
           >
             {submitted ? (
               <motion.div
-                className="flex flex-col items-center justify-center min-h-[350px] text-center"
+                className="flex flex-col items-center justify-center min-h-[350px] text-center font-body"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
               >
-                <CheckCircle2 size={54} className="text-wect-blue-light mb-5" />
-                <h3 className="font-display font-black uppercase text-2xl text-white mb-3 tracking-wide">
-                  Enquiry <span className="text-wect-red-light">Submitted</span>
+                <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/35 flex items-center justify-center text-emerald-400 mb-6 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+                  <CheckCircle2 size={36} />
+                </div>
+                <h3 className="font-display font-black uppercase text-xl text-white mb-3 tracking-wide">
+                  Enquiry <span className="text-emerald-400">Submitted</span>
                 </h3>
-                <p className="text-white/60 text-sm font-light max-w-sm leading-relaxed">
+                <p className="text-white/60 text-xs sm:text-sm font-light max-w-sm leading-relaxed">
                   Thank you for contacting WECT. Our technical application department will review your specifications and contact you shortly.
                 </p>
               </motion.div>
@@ -217,37 +300,61 @@ export default function Contact() {
                 <h3 className="font-display font-bold uppercase text-lg text-white border-b border-white/5 pb-3">
                   Submit Request for Quote (RFQ)
                 </h3>
+                
+                {submitError && (
+                  <motion.div 
+                    className="p-4 bg-wect-red/10 border border-wect-red/20 rounded-xl text-xs text-wect-red-light font-mono text-center flex items-center justify-center gap-2 mb-4"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    <XCircle size={14} />
+                    {submitError}
+                  </motion.div>
+                )}
+
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <input
-                      type="text" name="name" required value={form.name} onChange={handleChange}
-                      className="w-full bg-wect-navy border border-white/10 focus:border-wect-blue text-white text-xs px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-0"
-                      placeholder="Full Name *"
-                    />
-                    <input
-                      type="text" name="company" required value={form.company} onChange={handleChange}
-                      className="w-full bg-wect-navy border border-white/10 focus:border-wect-blue text-white text-xs px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-0"
-                      placeholder="Company Name *"
-                    />
+                    <div>
+                      <input
+                        type="text" name="name" value={form.name} onChange={handleChange} onBlur={handleBlur}
+                        className={getInputClass('name')}
+                        placeholder="Full Name *"
+                      />
+                      {renderError('name')}
+                    </div>
+                    <div>
+                      <input
+                        type="text" name="company" value={form.company} onChange={handleChange} onBlur={handleBlur}
+                        className={getInputClass('company')}
+                        placeholder="Company Name *"
+                      />
+                      {renderError('company')}
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <input
-                      type="email" name="email" required value={form.email} onChange={handleChange}
-                      className="w-full bg-wect-navy border border-white/10 focus:border-wect-blue text-white text-xs px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-0"
-                      placeholder="Email Address *"
-                    />
-                    <input
-                      type="text" name="phone" value={form.phone} onChange={handleChange}
-                      className="w-full bg-wect-navy border border-white/10 focus:border-wect-blue text-white text-xs px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-0"
-                      placeholder="Phone Number"
-                    />
+                    <div>
+                      <input
+                        type="email" name="email" value={form.email} onChange={handleChange} onBlur={handleBlur}
+                        className={getInputClass('email')}
+                        placeholder="Email Address *"
+                      />
+                      {renderError('email')}
+                    </div>
+                    <div>
+                      <input
+                        type="text" name="phone" value={form.phone} onChange={handleChange} onBlur={handleBlur}
+                        className={getInputClass('phone')}
+                        placeholder="Phone Number"
+                      />
+                      {renderError('phone')}
+                    </div>
                   </div>
 
                   <div className="relative">
                     <select
                       name="toolType" value={form.toolType} onChange={handleChange}
-                      className="w-full bg-wect-navy border border-white/10 focus:border-wect-blue text-white text-xs px-4 py-3 rounded-xl outline-none transition-all duration-300 appearance-none focus:ring-0 cursor-pointer"
+                      className="w-full bg-[#050912] border border-white/10 focus:border-wect-red-light text-white text-xs px-4 py-3.5 rounded-xl outline-none transition-all duration-300 appearance-none focus:ring-0 cursor-pointer"
                       style={{ backgroundImage: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23ffffff\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><polyline points=\'6 9 12 15 18 9\'></polyline></svg>")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 14px center', backgroundSize: '16px' }}
                     >
                       <option value="" className="bg-wect-navy">Select Product Category...</option>
@@ -259,7 +366,7 @@ export default function Contact() {
 
                   <textarea
                     name="message" rows={4} value={form.message} onChange={handleChange}
-                    className="w-full bg-wect-navy border border-white/10 focus:border-wect-blue text-white text-xs px-4 py-3 rounded-xl outline-none transition-all duration-300 resize-none focus:ring-0"
+                    className="w-full bg-[#050912] border border-white/10 focus:border-wect-red-light text-white text-xs px-4 py-3.5 rounded-xl outline-none transition-all duration-300 resize-none focus:ring-0"
                     placeholder="Describe tool specifications, work materials, quantities or tolerance demands..."
                   />
 

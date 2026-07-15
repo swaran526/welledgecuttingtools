@@ -15,8 +15,8 @@ export default function BottomCTA() {
       <div 
         className="absolute inset-0 bg-blueprint-grid pointer-events-none z-0" 
         style={{ 
-          maskImage: 'radial-gradient(circle at 50% 50%, black 20%, transparent 70%)', 
-          WebkitMaskImage: 'radial-gradient(circle at 50% 50%, black 20%, transparent 70%)' 
+          maskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)', 
+          WebkitMaskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)' 
         }} 
       />
       {/* Backgrounds */}
@@ -26,7 +26,7 @@ export default function BottomCTA() {
       {/* Top accent line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-wect-red/60 to-transparent" />
 
-      <div className="relative z-10 section-container py-24">
+      <div className="relative z-10 section-container py-16 lg:py-20">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
 
           {/* Left: Copy */}

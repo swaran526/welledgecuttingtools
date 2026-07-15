@@ -13,6 +13,8 @@
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    line-height: 1.7;
   }
 
   img {
@@ -34,7 +36,7 @@
     box-shadow: 0 0 0 1000px #080E1E inset !important;
     -webkit-text-fill-color: #ffffff !important;
     caret-color: #ffffff;
-    border-color: rgba(255,255,255,0.1) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
     transition: background-color 5000s ease-in-out 0s;
   }
 
@@ -43,8 +45,13 @@
     image-rendering: auto !important;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-black;
   }
 
   ::selection {
@@ -94,6 +101,7 @@
   .btn-primary {
     @apply inline-flex items-center gap-2.5 bg-wect-blue text-white font-display font-bold tracking-wide text-sm px-8 py-4 rounded-full transition-all duration-300 shadow-lg transform hover:-translate-y-0.5 select-none relative overflow-hidden;
   }
+
   .btn-primary::after {
     content: '';
     position: absolute;
@@ -101,17 +109,17 @@
     left: -100%;
     width: 50%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.25) 50%,
-      transparent 100%
-    );
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.25) 50%,
+        transparent 100%);
     transition: left 0.6s ease-in-out;
   }
+
   .btn-primary:hover::after {
     left: 150%;
   }
+
   .btn-primary:hover {
     @apply bg-wect-red;
     box-shadow: 0 0 35px rgba(196, 18, 48, 0.4);
@@ -120,6 +128,7 @@
   .btn-secondary {
     @apply inline-flex items-center gap-2.5 bg-white text-wect-blue font-display font-bold tracking-wide text-sm px-8 py-4 rounded-full transition-all duration-300 border border-white/30 transform hover:-translate-y-0.5 select-none relative overflow-hidden;
   }
+
   .btn-secondary::after {
     content: '';
     position: absolute;
@@ -127,17 +136,17 @@
     left: -100%;
     width: 50%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(28, 43, 94, 0.15) 50%,
-      transparent 100%
-    );
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(28, 43, 94, 0.15) 50%,
+        transparent 100%);
     transition: left 0.6s ease-in-out;
   }
+
   .btn-secondary:hover::after {
     left: 150%;
   }
+
   .btn-secondary:hover {
     @apply bg-wect-blue text-white border-wect-blue;
   }
@@ -145,6 +154,7 @@
   .btn-outline-white {
     @apply inline-flex items-center gap-2.5 border-2 border-white/60 text-white font-display font-bold tracking-wide text-sm px-8 py-4 rounded-full transition-all duration-300 transform hover:-translate-y-0.5 select-none;
   }
+
   .btn-outline-white:hover {
     @apply bg-white text-wect-blue;
   }
@@ -152,6 +162,7 @@
   .btn-outline-blue {
     @apply inline-flex items-center gap-2.5 border-2 border-wect-blue text-wect-blue font-display font-bold tracking-wide text-sm px-8 py-4 rounded-full transition-all duration-300 transform hover:-translate-y-0.5 select-none;
   }
+
   .btn-outline-blue:hover {
     @apply bg-wect-blue text-white;
   }
@@ -159,6 +170,7 @@
   .btn-outline-red {
     @apply inline-flex items-center gap-2.5 border-2 border-wect-red text-wect-red font-display font-bold tracking-wide text-sm px-8 py-4 rounded-full transition-all duration-300 transform hover:-translate-y-0.5 select-none;
   }
+
   .btn-outline-red:hover {
     @apply bg-wect-red text-white;
   }
@@ -166,21 +178,22 @@
   /* ─── Cards ─────────────────────────────────────────── */
   .card-light {
     @apply bg-white border border-steel-100 rounded-2xl transition-all duration-300 transform;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 8px 32px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 8px 32px rgba(0, 0, 0, 0.08);
   }
+
   .card-light:hover {
     @apply -translate-y-1;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.06), 0 20px 64px rgba(28,43,94,0.12);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 20px 64px rgba(28, 43, 94, 0.12);
   }
 
   .card-glass {
     @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 8px 32px rgba(0,0,0,0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.2);
   }
 
   .card-glass-light {
     @apply bg-white/80 backdrop-blur-lg border border-white/40 rounded-2xl;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 8px 32px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 8px 32px rgba(0, 0, 0, 0.08);
   }
 
   .card-dark {
@@ -195,12 +208,12 @@
 
   .dark-glass-panel {
     @apply bg-slate-900/60 backdrop-blur-xl border border-white/5 rounded-2xl;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 8px 32px rgba(0,0,0,0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.2);
   }
 
   .metal-panel {
     @apply bg-gradient-to-b from-steel-50 to-white border border-steel-200 rounded-2xl;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
   }
 
   /* ─── Section containers ─────────────────────────────── */
@@ -209,7 +222,7 @@
   }
 
   .section-padding {
-    @apply py-20 lg:py-28;
+    @apply py-16 lg:py-20;
   }
 
   /* ─── Metallic badge / pill ─────────────────────────── */
@@ -255,8 +268,8 @@
   .bg-blueprint-grid {
     background-size: 64px 64px;
     background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      linear-gradient(to right, rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
   }
 
   .bg-grid-fine {
@@ -270,10 +283,10 @@
   .bg-blueprint {
     background-color: #0D1628;
     background-image:
-      linear-gradient(rgba(100,149,237,0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(100,149,237,0.08) 1px, transparent 1px),
-      linear-gradient(rgba(100,149,237,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(100,149,237,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(100, 149, 237, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100, 149, 237, 0.08) 1px, transparent 1px),
+      linear-gradient(rgba(100, 149, 237, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100, 149, 237, 0.03) 1px, transparent 1px);
     background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
   }
 
@@ -290,12 +303,10 @@
     left: -100%;
     width: 60%;
     height: 100%;
-    background: linear-gradient(
-      105deg,
-      transparent 20%,
-      rgba(255, 255, 255, 0.08) 50%,
-      transparent 80%
-    );
+    background: linear-gradient(105deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 80%);
     transition: left 0.5s ease;
   }
 
@@ -360,27 +371,49 @@
   }
 
   /* ─── Animate stagger helpers ────────────────────────── */
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
-  .stagger-5 { animation-delay: 0.5s; }
+  .stagger-1 {
+    animation-delay: 0.1s;
+  }
+
+  .stagger-2 {
+    animation-delay: 0.2s;
+  }
+
+  .stagger-3 {
+    animation-delay: 0.3s;
+  }
+
+  .stagger-4 {
+    animation-delay: 0.4s;
+  }
+
+  .stagger-5 {
+    animation-delay: 0.5s;
+  }
 
   /* ─── Lenis Smooth Scrolling ─────────────────────────── */
-  html.lenis, html.lenis body {
+  html.lenis,
+  html.lenis body {
     height: auto;
   }
+
   .lenis.lenis-smooth {
     scroll-behavior: auto !important;
   }
+
   .lenis.lenis-smooth [data-lenis-prevent] {
     overscroll-behavior: contain;
   }
+
   .lenis.lenis-stopped {
     overflow: hidden;
   }
+
   .lenis.lenis-smooth iframe {
     pointer-events: none;
   }
-  .stagger-6 { animation-delay: 0.6s; }
+
+  .stagger-6 {
+    animation-delay: 0.6s;
+  }
 }

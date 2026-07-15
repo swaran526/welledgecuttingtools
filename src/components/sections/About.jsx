@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import {
-  Target, Cpu, Gauge, Workflow, Milestone, Activity, ShieldCheck, Orbit, 
-  Factory, Eye, Award, Microscope, Zap, DollarSign, Truck, Headphones, 
+  Target, Cpu, Gauge, Workflow, Milestone, Activity, ShieldCheck, Orbit,
+  Factory, Eye, Award, Microscope, Zap, DollarSign, Truck, Headphones,
   ClipboardCheck, Shield, Compass, Settings, Layers, Crosshair
 } from 'lucide-react'
 
@@ -11,12 +10,23 @@ import blueprintProductImg from '../../assets/images/why_us_blueprint_product.jp
 import toolImg1 from '../../assets/images/hero_11.png'
 import toolImg2 from '../../assets/images/reamer_clean.jpg'
 
-// Background story slideshow images
+// About section slideshow — 7 images
+import storyImg1 from '../../assets/images/our_story_1.jpeg'
+import storyImg2 from '../../assets/images/our_story_2.png'
+import storyImg3 from '../../assets/images/our_story_3.jpeg'
+import storyImg4 from '../../assets/images/our_story_4.jpeg'
+import storyImg5 from '../../assets/images/hero_2.png'
+import storyImg6 from '../../assets/images/hero_8.png'
+import storyImg7 from '../../assets/images/hero_9.png'
+
 const storyImages = [
-  '/images/hero/hero_2.png',
-  '/images/hero/hero_5.png',
-  '/images/hero/hero_7.png',
-  '/images/hero/hero_9.png'
+  storyImg1,
+  storyImg2,
+  storyImg3,
+  storyImg4,
+  storyImg5,
+  storyImg6,
+  storyImg7,
 ]
 
 const reasons = [
@@ -30,7 +40,7 @@ const reasons = [
     icon: ShieldCheck,
     title: 'Long Tool Life',
     desc: 'Advanced PVD coatings and heat treatment maximize cutting edge durability in demanding applications.',
-    metric: '3x Longer',
+    metric: '3× Longer',
   },
   {
     icon: Cpu,
@@ -70,14 +80,87 @@ const reasons = [
   },
 ]
 
-const reasonsContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.08 } }
+const timelineData = [
+  {
+    year: '2014',
+    title: 'FOUNDING',
+    desc: 'WECT was established with a focus on manufacturing high-precision industrial tooling solutions.',
+    icon: <Milestone size={16} className="text-white" />,
+    color: '#2F3F91',
+  },
+  {
+    year: '2017',
+    title: 'FACILITY UPGRADE',
+    desc: 'Commissioned a state-of-the-art CNC grinding plant with high-precision measuring and monitoring equipment.',
+    icon: <Activity size={16} className="text-white" />,
+    color: '#A81F3D',
+  },
+  {
+    year: '2020',
+    title: 'PORTFOLIO EXPANSION',
+    desc: 'Introduced advanced carbide and cobalt end mills, reamers, and custom-designed form tooling.',
+    icon: <Factory size={16} className="text-white" />,
+    color: '#2F3F91',
+  },
+  {
+    year: '2022',
+    title: 'ROBOTIC AUTOMATION',
+    desc: 'Integrated advanced robotic autoloaders to scale production efficiency and ensure absolute batch consistency.',
+    icon: <Cpu size={16} className="text-white" />,
+    color: '#A81F3D',
+  },
+  {
+    year: '2024',
+    title: 'GLOBAL EXPORTS',
+    desc: 'Achieved ISO 9001:2015 certification and expanded export networks to major precision machining hubs globally.',
+    icon: <Award size={16} className="text-white" />,
+    color: '#2F3F91',
+  },
+  {
+    year: '2026',
+    title: 'FUTURE DIRECTIVES',
+    desc: 'Deploying AI-driven custom geometry design systems to engineer the next generation of high-efficiency machining tools.',
+    icon: <Orbit size={16} className="text-white" />,
+    color: '#A81F3D',
+  },
+]
+
+const valuesData = [
+  {
+    title: 'Quality Commitment',
+    desc: 'Every cutting tool undergoes comprehensive dimensional and structural inspections with micron-level tolerance testing.',
+    icon: <ShieldCheck size={20} />,
+  },
+  {
+    title: 'Engineering Excellence',
+    desc: 'Utilizing state-of-the-art multi-axis CNC grinding systems to deliver optimum edge hardness and chip evacuation geometries.',
+    icon: <Workflow size={20} />,
+  },
+  {
+    title: 'Precision Integrity',
+    desc: 'Metallurgical consistency and advanced coating solutions configured to maximize tool life under high feed conditions.',
+    icon: <Cpu size={20} />,
+  },
+  {
+    title: 'Customer Support',
+    desc: 'Providing dedicated application engineering support and quick-turn custom tooling configuration.',
+    icon: <Gauge size={20} />,
+  },
+]
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
 }
 
-const reasonsCardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } }
+const stagger = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+}
+
+const cardStagger = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.07 } },
 }
 
 export default function About() {
@@ -91,523 +174,686 @@ export default function About() {
     return () => clearInterval(interval)
   }, [])
 
-  const timelineData = [
-    {
-      year: "2014",
-      title: "FOUNDING",
-      desc: "WECT was established with a focus on manufacturing high-precision industrial tooling solutions.",
-      icon: <Milestone size={16} className="text-white" />,
-      align: "bottom",
-      color: "#2F3F91",
-      textColor: "text-white"
-    },
-    {
-      year: "2017",
-      title: "FACILITY UPGRADE",
-      desc: "Commissioned a state-of-the-art CNC grinding plant with high-precision measuring and monitoring equipment.",
-      icon: <Activity size={16} className="text-white" />,
-      align: "top",
-      color: "#A81F3D",
-      textColor: "text-white"
-    },
-    {
-      year: "2020",
-      title: "PORTFOLIO EXPANSION",
-      desc: "Introduced advanced carbide and cobalt end mills, reamers, and custom-designed form tooling.",
-      icon: <Factory size={16} className="text-white" />,
-      align: "bottom",
-      color: "#2F3F91",
-      textColor: "text-white"
-    },
-    {
-      year: "2023",
-      title: "GLOBAL STANDARDS",
-      desc: "Achieved international quality system certifications, boosting exports to global CNC milling partners.",
-      icon: <Award size={16} className="text-white" />,
-      align: "top",
-      color: "#A81F3D",
-      textColor: "text-white"
-    },
-    {
-      year: "2026",
-      title: "FUTURE DIRECTIVES",
-      desc: "Deploying intelligent automated design systems to engineer the next generation of high-efficiency machining tools.",
-      icon: <Orbit size={16} className="text-white" />,
-      align: "bottom",
-      color: "#2F3F91",
-      textColor: "text-white"
-    }
-  ]
-
-  const valuesData = [
-    {
-      title: "Quality Commitment",
-      desc: "Every cutting tool undergoes comprehensive dimensional and structural inspections with micron-level tolerance testing.",
-      icon: <ShieldCheck size={20} />
-    },
-    {
-      title: "Engineering Excellence",
-      desc: "Utilizing state-of-the-art multi-axis CNC grinding systems to deliver optimum edge hardness and chip evacuation geometries.",
-      icon: <Workflow size={20} />
-    },
-    {
-      title: "Precision Integrity",
-      desc: "Metallurgical consistency and advanced coating solutions configured to maximize tool life under high feed conditions.",
-      icon: <Cpu size={20} />
-    },
-    {
-      title: "Customer Support",
-      desc: "Providing dedicated application engineering support and quick-turn custom tooling configuration.",
-      icon: <Gauge size={20} />
-    }
-  ]
-
-  const headerContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.12 }
-    }
-  }
-
-  const headerItemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-    }
-  }
-
-  const gridContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.08, delayChildren: 0.1 }
-    }
-  }
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
-  }
-
   return (
     <>
-      <section id="about" className="bg-transparent text-white section-padding font-body relative overflow-hidden border-t border-white/5">
+      {/* ── SECTION 1: COMPANY OVERVIEW ───────────────────────── */}
+      <section
+        id="about"
+        className="relative w-full bg-wect-navy text-white pt-12 pb-10 lg:pt-14 lg:pb-12 overflow-hidden border-t border-white/5"
+      >
+        {/* Ambient glow — matches Hero */}
+        <div className="absolute bottom-[20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-wect-red/5 blur-[120px] pointer-events-none" />
+        <div className="absolute top-[20%] left-[-10%] w-[450px] h-[450px] rounded-full bg-wect-blue/10 blur-[130px] pointer-events-none" />
 
-      <div 
-        className="absolute inset-0 bg-blueprint-grid pointer-events-none z-0" 
-        style={{ 
-          maskImage: 'radial-gradient(circle at 50% 50%, black 20%, transparent 70%)', 
-          WebkitMaskImage: 'radial-gradient(circle at 50% 50%, black 20%, transparent 70%)' 
-        }} 
-      />
+        {/* Blueprint grid — matches Hero opacity */}
+        <div
+          className="absolute inset-0 bg-blueprint-grid opacity-[0.06] pointer-events-none"
+          style={{ maskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)' }}
+        />
 
-      {/* =========================================================
-          SECTION 1: COMPANY OVERVIEW
-          ========================================================= */}
-      <div className="max-w-[92rem] mx-auto px-6 mb-24 relative z-10">
+        <div className="relative z-10 section-container">
 
-        {/* Section Header */}
-        <motion.div
-          className="text-center max-w-3xl mx-auto mb-16 space-y-4"
-          variants={headerContainerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <span className="font-mono text-[10px] tracking-[0.25em] text-wect-red-light uppercase font-bold">01 // CORPORATE PROFILE</span>
-          <motion.h2
-            variants={headerItemVariants}
-            className="font-display font-black uppercase text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-none mb-4"
-          >
-            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-wect-red-light">WECT</span>
-          </motion.h2>
-
-          <motion.p
-            variants={headerItemVariants}
-            className="text-white/60 text-sm sm:text-base font-light max-w-2xl mx-auto leading-relaxed border-t border-white/5 pt-4"
-          >
-            Empowering modern CNC machining and industrial manufacturing through metallurgical expertise, precise edge engineering, and custom rotary tool design.
-          </motion.p>
-        </motion.div>
-
-        {/* Content Layout Grid */}
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
-
-          {/* Left Block - Narrative */}
+          {/* Section header */}
           <motion.div
-            className="lg:col-span-6 space-y-6 text-center lg:text-left"
+            className="text-center max-w-3xl mx-auto mb-10 space-y-3"
+            variants={stagger}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            variants={headerContainerVariants}
           >
-            <motion.h3
-              variants={headerItemVariants}
-              className="font-display font-black uppercase text-2xl sm:text-3xl tracking-wide text-white"
+            <motion.h2
+              variants={fadeUp}
+              className="font-display font-black uppercase text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-none"
             >
-              Engineering <span className="text-wect-red-light">The Edge.</span>
-            </motion.h3>
-
-            <motion.div
-              variants={headerItemVariants}
-              className="space-y-4 text-white/60 text-sm sm:text-base leading-relaxed text-left font-light"
+              About{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-wect-red-light">
+                WECT
+              </span>
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="text-white/60 text-sm sm:text-base font-light max-w-2xl mx-auto leading-relaxed border-t border-white/5 pt-4"
             >
-              <p>
-                WECT (Well Edge Cutting Tools) has established a reputation for manufacturing premium, high-performance cutting tools. Equipped with advanced multi-axis CNC grinding facilities, we engineering cobalt and carbide tool matrices engineered to meet the highest precision machining requirements.
-              </p>
-              <p>
-                Our dedication to metallurgical excellence, advanced physical coatings, and strict dimensional tolerances translates to longer tool life, reduced cycle times, and exceptional surface finish quality for our B2B customers.
-              </p>
-              <p>
-                From standard carbide end mills and custom slot drills to high-speed reamers and custom milling cutters, WECT tools power key industrial sectors including aerospace, automotive, die and mold, medical engineering, and precision tooling.
-              </p>
-            </motion.div>
+              Bangalore-based precision cutting tool manufacturer — engineering cobalt &amp; carbide
+              tooling that drives aerospace, automotive, and medical industries forward.
+            </motion.p>
           </motion.div>
 
-          {/* Right Block - Slideshow Card */}
-          <motion.div
-            className="lg:col-span-6 relative group"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
-          >
-            <div className="relative w-full aspect-[4/3] bg-white/5 border border-white/10 rounded-3xl overflow-hidden shadow-glass z-10 transition-all duration-300 group-hover:border-wect-red-light/30">
-              <AnimatePresence mode="popLayout">
-                <motion.img
-                  key={storyIndex}
-                  src={storyImages[storyIndex]}
-                  alt="WECT high-tech manufacturing plant"
-                  className="absolute inset-0 w-full h-full object-cover brightness-[0.55] group-hover:brightness-[0.45] transition-all duration-500"
-                  initial={{ opacity: 0, scale: 1.03 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                />
-              </AnimatePresence>
+          {/* Two-column layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
 
-              <div className="absolute inset-0 p-8 flex flex-col justify-end z-10 pointer-events-none">
-                <div className="space-y-2 max-w-md">
-                  <p className="text-white font-display font-black uppercase text-lg sm:text-xl tracking-wide leading-tight">
-                    Premium Carbide Metallurgy
-                  </p>
-                  <p className="text-white/50 text-xs leading-relaxed">
-                    Designed, ground, and inspected to deliver superior surface finishes and stable cutting action at extreme feed velocities.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-        </div>
-      </div>
-
-      {/* =========================================================
-          SECTION 2: TIMELINE (Horizontal Scroll)
-          ========================================================= */}
-      <div className="bg-white/5 border-y border-white/5 py-16 mb-24 relative overflow-hidden z-10">
-        <div className="max-w-[92rem] mx-auto px-6 relative z-10">
-          <div className="text-center max-w-xl mx-auto mb-10">
-            <span className="font-mono text-[10px] tracking-[0.2em] text-wect-red-light uppercase font-bold">TIMELINE</span>
-            <h3 className="text-2xl sm:text-3xl font-display font-black uppercase text-white tracking-tight mt-1">
-              WECT <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-wect-red-light">Evolution</span>
-            </h3>
-          </div>
-
-          {/* Timeline scroll container */}
-          <div className="overflow-x-auto pb-6 pt-4 scrollbar-thin">
-            <div className="flex gap-8 min-w-[1000px] justify-between px-4">
-              {timelineData.map((node, idx) => (
-                <motion.div
-                  key={idx}
-                  className="flex-1 bg-white/5 border border-white/10 p-6 rounded-2xl shadow-glass relative group hover:border-wect-red-light transition-all duration-300 flex flex-col text-white"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm"
-                      style={{ backgroundColor: node.color }}
-                    >
-                      {node.icon}
-                    </div>
-                    <span className="font-display font-black text-2xl text-white">
-                      {node.year}
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-display font-bold uppercase text-white mb-2 group-hover:text-wect-red-light transition-colors">
-                    {node.title}
-                  </h4>
-                  <p className="text-xs text-white/50 leading-relaxed font-light">
-                    {node.desc}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* =========================================================
-          SECTION 3: MISSION, VISION & PILLARS
-          ========================================================= */}
-      <div className="max-w-[92rem] mx-auto px-6 relative z-10">
-
-        {/* Section divider label */}
-        <div className="text-center mb-16">
-          <span className="font-mono text-[10px] tracking-[0.25em] text-wect-red-light uppercase font-bold">02 // STRATEGIC FRAMEWORK</span>
-          <h3 className="text-2xl sm:text-3xl font-display font-black uppercase text-white mt-1">
-            Our Mission, Vision & Excellence Pillars
-          </h3>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch mb-12">
-
-          {/* Mission & Vision Columns */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            {/* Mission Card */}
+            {/* Left — narrative + stats */}
             <motion.div
-              className="bg-white/5 border border-white/10 rounded-2xl p-8 flex flex-col justify-center flex-1 shadow-glass hover:border-wect-blue transition-all duration-300"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-wect-blue text-white rounded-xl flex items-center justify-center shadow-md">
-                  <Target size={20} />
-                </div>
-                <h4 className="font-display font-black text-lg uppercase text-white">Our Mission</h4>
-              </div>
-              <p className="text-sm text-white/60 leading-relaxed font-light">
-                To engineer premium precision cutting tool solutions that empower industrial manufacturing partners to achieve maximum efficiency, metallurgical reliability, and manufacturing excellence.
-              </p>
-            </motion.div>
-
-            {/* Vision Card */}
-            <motion.div
-              className="bg-white/5 border border-white/10 rounded-2xl p-8 flex flex-col justify-center flex-1 shadow-glass hover:border-wect-red-light transition-all duration-300"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-wect-red-light text-white rounded-xl flex items-center justify-center shadow-md">
-                  <Eye size={20} />
-                </div>
-                <h4 className="font-display font-black text-lg uppercase text-white">Our Vision</h4>
-              </div>
-              <p className="text-sm text-white/60 leading-relaxed font-light">
-                To be the global benchmark for high-performance CNC tooling, recognized for our technological innovation, custom engineering capabilities, and commitment to precision tooling design.
-              </p>
-            </motion.div>
-          </div>
-
-          {/* Pillars Columns (Values, Commitments) */}
-          <div className="lg:col-span-7 flex flex-col justify-between">
-            <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 gap-6"
-              variants={gridContainerVariants}
+              className="lg:col-span-6 space-y-4"
+              variants={stagger}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
+              viewport={{ once: true, amount: 0.2 }}
             >
-              {valuesData.map((val, index) => (
-                <motion.div
-                  key={index}
-                  variants={cardVariants}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  className={`bg-white/5 border p-6 rounded-2xl min-h-[180px] flex flex-col justify-between shadow-glass cursor-pointer transition-all duration-300 ${hoveredIndex === index ? 'border-wect-blue shadow-md transform -translate-y-1' : 'border-white/10'
-                    }`}
-                >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${hoveredIndex === index ? 'bg-wect-blue text-white shadow-md' : 'bg-white/5 text-wect-blue-light'
-                    }`}>
-                    {val.icon}
-                  </div>
-                  <div className="mt-4 space-y-2 text-white">
-                    <h5 className="font-display font-bold text-sm uppercase tracking-wide">
-                      {val.title}
-                    </h5>
-                    <p className="text-xs text-white/50 leading-relaxed font-light">
-                      {val.desc}
+              <motion.div variants={fadeUp} className="space-y-1">
+                {/* Decorative left accent bar */}
+                <div className="flex items-start gap-4">
+                  <div className="w-[3px] h-full min-h-[60px] bg-gradient-to-b from-wect-red-light to-wect-blue rounded-full shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-display font-black uppercase leading-none tracking-tight text-white text-2xl sm:text-3xl">
+                      Built for{' '}
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-wect-red-light to-rose-400">
+                        Precision.
+                      </span>
+                    </h3>
+                    <p className="font-display font-black uppercase text-lg sm:text-xl tracking-wide text-white/40 mt-1">
+                      Designed to Last.
                     </p>
                   </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    {/* =========================================================
-        SECTION 4: WHY CHOOSE US
-        ========================================================= */}
-    <section id="why-us" className="bg-transparent text-white section-padding font-body relative overflow-hidden border-t border-white/5">
-      <div
-        className="absolute inset-0 bg-blueprint-grid pointer-events-none z-0"
-        style={{
-          maskImage: 'radial-gradient(circle at 50% 50%, black 20%, transparent 70%)',
-          WebkitMaskImage: 'radial-gradient(circle at 50% 50%, black 20%, transparent 70%)'
-        }}
-      />
-
-      <div className="relative section-container z-10">
-        <div className="text-center mb-16">
-          <span className="font-mono text-[10px] tracking-[0.25em] text-wect-red-light uppercase font-bold">03 // THE WECT ADVANTAGE</span>
-          <h3 className="text-2xl sm:text-3xl font-display font-black uppercase text-white mt-1">
-            Why CNC Machinists Choose WECT Tools
-          </h3>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
-          {/* Left: Interactive blueprint showcase card */}
-          <div className="lg:col-span-4 flex">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="relative w-full bg-white/5 border border-white/10 rounded-3xl overflow-hidden shadow-glass group p-8 flex flex-col justify-between"
-            >
-              {/* Blueprint grid bg */}
-              <div className="absolute inset-0 bg-blueprint opacity-50 pointer-events-none" />
-
-              <div className="relative z-10 space-y-5">
-                <h4 className="font-display font-black text-white text-sm uppercase tracking-wider">
-                  Precision Tool Inspection
-                </h4>
-
-                {/* Three product images — equal thirds, fixed height */}
-                <div className="relative w-full grid grid-cols-3 bg-white rounded-xl border border-white/10 overflow-hidden">
-                  <div className="flex items-center justify-center p-3 border-r border-gray-100">
-                    <img
-                      src={blueprintProductImg}
-                      alt="WECT Indexable Milling Cutters"
-                      className="h-[70px] w-full object-contain group-hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center p-3 border-r border-gray-100">
-                    <img
-                      src={toolImg1}
-                      alt="WECT End Mill"
-                      className="h-[70px] w-full object-contain group-hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center p-3">
-                    <img
-                      src={toolImg2}
-                      alt="WECT Reamer"
-                      className="h-[70px] w-full object-contain group-hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
                 </div>
+              </motion.div>
 
-                {/* Specs grid — 4 columns */}
-                <div className="grid grid-cols-4 gap-2 border-t border-white/10 pt-4">
-                  {[
-                    {
-                      label: 'Diameter', val: 'ø12 mm',
-                      icon: (
-                        <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <circle cx="12" cy="12" r="9" /><line x1="5" y1="19" x2="19" y2="5" />
-                        </svg>
-                      ),
-                    },
-                    { label: 'Tolerance', val: '±0.002mm', icon: <Crosshair size={11} strokeWidth={2.5} /> },
-                    { label: 'Hardness',  val: '65 HRC',   icon: <ShieldCheck size={11} strokeWidth={2.5} /> },
-                    { label: 'Coating',   val: 'AlTiN PVD',icon: <Layers size={11} strokeWidth={2.5} /> },
-                  ].map((s, idx) => (
-                    <div key={idx} className="flex flex-col items-center text-center gap-1">
-                      <div className="w-7 h-7 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-wect-red-light">
-                        {s.icon}
-                      </div>
-                      <span className="font-mono text-white/30 text-[7px] tracking-widest uppercase">{s.label}</span>
-                      <div className="font-mono text-white text-[9px] font-bold">{s.val}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <motion.div
+                variants={fadeUp}
+                className="space-y-4 text-white/60 text-sm sm:text-base leading-relaxed font-light"
+              >
+                <p>
+                  Well Edge Cutting Tools (WECT) is a Bangalore-based manufacturer of premium solid
+                  carbide, cobalt, PCD, and PCBN cutting tools. Powered by state-of-the-art
+                  multi-axis CNC grinding centres and advanced metrology, every tool is held to
+                  micron-level tolerances — batch after batch, order after order.
+                </p>
+                <p>
+                  We combine ultra-fine grain tungsten carbide substrates with advanced PVD and CVD
+                  coating technologies to deliver tools that run harder, last longer, and produce
+                  better surface finishes than standard alternatives.
+                </p>
+              </motion.div>
 
-              {/* Features footer */}
-              <div className="grid grid-cols-2 gap-2 border-t border-white/10 pt-4 mt-6 relative z-10">
+              {/* Key stats — same style as Hero spec checklist */}
+              <motion.div
+                variants={fadeUp}
+                className="grid grid-cols-2 sm:grid-cols-4 gap-2 border-y border-white/5 py-4"
+              >
                 {[
-                  { icon: <Crosshair size={9} />, label: 'High Precision' },
-                  { icon: <Shield size={9} />,    label: 'Long Tool Life' },
-                  { icon: <Compass size={9} />,   label: 'Custom Geometry' },
-                  { icon: <Settings size={9} />,  label: 'CNC Optimized' },
-                ].map((f, idx) => (
-                  <div key={idx} className="flex items-center gap-1.5 text-[8px] font-mono tracking-wider text-white/60">
-                    <span className="text-wect-red-light">{f.icon}</span>
-                    <span>{f.label}</span>
+                  { value: '2014', label: 'Founded' },
+                  { value: '500+', label: 'Products' },
+                  { value: '6+', label: 'Industries' },
+                  { value: 'ISO', label: '9001:2015' },
+                ].map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="group bg-white/[0.03] border border-white/5 rounded-2xl px-4 py-3 text-center hover:border-wect-red-light/30 transition-colors duration-300"
+                  >
+                    <div className="font-display font-black text-xl text-white group-hover:text-wect-red-light transition-colors duration-300 leading-none">
+                      {stat.value}
+                    </div>
+                    <div className="font-mono text-[9px] tracking-widest text-white/40 uppercase mt-1.5">
+                      {stat.label}
+                    </div>
                   </div>
                 ))}
-              </div>
-
-              {/* Hover bottom accent bar */}
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-wect-red-light scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+              </motion.div>
             </motion.div>
-          </div>
 
-          {/* Right: Grid of reasons cards */}
-          <div className="lg:col-span-8">
+            {/* Right — slideshow image card */}
             <motion.div
-              variants={reasonsContainerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+              className="lg:col-span-6 relative group"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
             >
-              {reasons.map((item) => {
-                const Icon = item.icon
-                return (
-                  <motion.div
-                    key={item.title}
-                    variants={reasonsCardVariants}
-                    className="group relative bg-white/5 border border-white/10 rounded-2xl p-5 shadow-glass hover:border-wect-red-light/35 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer overflow-hidden text-white"
-                  >
-                    {/* Metric badge */}
-                    <div className="absolute top-4 right-4">
-                      <span className="font-mono text-[8px] text-white/40 bg-white/5 border border-white/10 px-2 py-0.5 rounded tracking-wider">
-                        {item.metric}
-                      </span>
-                    </div>
+              {/* Rotated glow shadow — matches Hero image card */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-wect-blue/20 to-wect-red/20 rounded-2xl transform rotate-2 scale-[1.02] blur-sm pointer-events-none" />
 
-                    {/* Icon */}
-                    <div className="w-8 h-8 rounded-xl flex items-center justify-center mb-4 bg-white/5 border border-white/10 text-wect-red-light group-hover:bg-wect-red group-hover:text-white group-hover:border-wect-red-light transition-all duration-300 shadow-sm">
-                      <Icon size={14} className="text-white" strokeWidth={1.5} />
-                    </div>
+              <div className="relative w-full aspect-[4/3] sm:aspect-[3/2] max-h-[380px] bg-white/5 border border-white/10 rounded-2xl overflow-hidden shadow-glass z-10 transition-all duration-300 hover:border-wect-red-light/30">
+                <AnimatePresence mode="popLayout">
+                  <motion.img
+                    key={storyIndex}
+                    src={storyImages[storyIndex]}
+                    alt="WECT precision manufacturing"
+                    className="absolute inset-0 w-full h-full object-cover brightness-[0.55] group-hover:brightness-[0.45] transition-all duration-500"
+                    initial={{ opacity: 0, scale: 1.05 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.97 }}
+                    transition={{ duration: 0.8, ease: 'easeInOut' }}
+                  />
+                </AnimatePresence>
 
-                    <h3 className="font-display font-bold text-sm text-white group-hover:text-wect-red-light transition-colors mb-1 pr-16">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-white/45 text-xs leading-relaxed font-light">
-                      {item.desc}
+                {/* Caption overlay */}
+                <div className="absolute inset-0 p-8 flex flex-col justify-end z-10 pointer-events-none">
+                  <div className="space-y-1">
+                    <span className="font-mono text-[8px] tracking-widest text-wect-red-light uppercase">
+                      METALLURGY
+                    </span>
+                    <p className="text-white font-display font-black uppercase text-base sm:text-lg tracking-wide leading-tight">
+                      Premium Carbide Metallurgy
                     </p>
-
-                    {/* Hover accent bottom bar */}
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-wect-red-light scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                  </motion.div>
-                )
-              })}
+                    <p className="text-white/50 text-xs leading-relaxed max-w-sm">
+                      Designed, ground, and inspected to deliver superior surface finishes at extreme
+                      feed velocities.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
+
           </div>
         </div>
-      </div>
-    </section>
-  </>
-)
+      </section>
+
+      {/* ── SECTION 2: TIMELINE (WINDING PATH) ───────────────── */}
+      <section className="relative w-full bg-wect-navy text-white py-12 lg:py-14 overflow-hidden border-t border-white/5">
+        <div className="absolute inset-0 bg-blueprint-grid opacity-[0.04] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-wect-blue/5 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="relative z-10 section-container">
+
+          {/* Header */}
+          <motion.div
+            className="text-center max-w-xl mx-auto mb-16"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <motion.span
+              variants={fadeUp}
+              className="font-mono text-[10px] tracking-[0.2em] text-wect-red-light uppercase font-bold"
+            >
+              TIMELINE
+            </motion.span>
+            <motion.h3
+              variants={fadeUp}
+              className="text-2xl sm:text-3xl font-display font-black uppercase text-white tracking-tight mt-1"
+            >
+              WECT{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-wect-red-light">
+                Evolution
+              </span>
+            </motion.h3>
+          </motion.div>
+
+          {/* Winding Path Timeline */}
+          <div className="relative w-full overflow-x-auto pb-6">
+            <div className="relative min-w-[820px] mx-auto" style={{ height: '340px' }}>
+
+              {/* SVG winding path */}
+              <svg
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                viewBox="0 0 820 340"
+                preserveAspectRatio="none"
+                fill="none"
+              >
+                {/* Glow blur path */}
+                <path
+                  d="M 60 260 C 120 260, 140 180, 200 180 C 260 180, 280 260, 340 260 C 400 260, 420 180, 480 180 C 540 180, 560 260, 620 260 C 680 260, 700 180, 760 180"
+                  stroke="url(#pathGlow)"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  filter="url(#blur)"
+                  opacity="0.4"
+                />
+                {/* Main path */}
+                <path
+                  d="M 60 260 C 120 260, 140 180, 200 180 C 260 180, 280 260, 340 260 C 400 260, 420 180, 480 180 C 540 180, 560 260, 620 260 C 680 260, 700 180, 760 180"
+                  stroke="url(#pathGradient)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeDasharray="6 4"
+                />
+                <defs>
+                  <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#2F3F91" />
+                    <stop offset="50%" stopColor="#A81F3D" />
+                    <stop offset="100%" stopColor="#2F3F91" />
+                  </linearGradient>
+                  <linearGradient id="pathGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#2F3F91" />
+                    <stop offset="50%" stopColor="#A81F3D" />
+                    <stop offset="100%" stopColor="#2F3F91" />
+                  </linearGradient>
+                  <filter id="blur">
+                    <feGaussianBlur stdDeviation="4" />
+                  </filter>
+                </defs>
+              </svg>
+
+              {/* Milestone nodes + cards */}
+              {[
+                { ...timelineData[0], x: 60, y: 260, above: false },
+                { ...timelineData[1], x: 200, y: 180, above: true },
+                { ...timelineData[2], x: 340, y: 260, above: false },
+                { ...timelineData[3], x: 480, y: 180, above: true },
+                { ...timelineData[4], x: 620, y: 260, above: false },
+                { ...timelineData[5], x: 760, y: 180, above: true },
+              ].map((node, idx) => (
+                <motion.div
+                  key={idx}
+                  className="absolute"
+                  style={{ left: `${node.x}px`, top: `${node.y}px`, transform: 'translate(-50%, -50%)' }}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {/* Connector line from dot to card */}
+                  <div
+                    className="absolute left-1/2 -translate-x-[0.5px] w-[1px] bg-white/15"
+                    style={{
+                      height: '52px',
+                      top: node.above ? 'auto' : '18px',
+                      bottom: node.above ? '18px' : 'auto',
+                    }}
+                  />
+
+                  {/* Glowing dot node */}
+                  <div
+                    className="relative z-10 w-5 h-5 rounded-full border-2 border-white/30 shadow-lg flex items-center justify-center"
+                    style={{ backgroundColor: node.color, boxShadow: `0 0 12px ${node.color}60` }}
+                  >
+                    <div className="w-2 h-2 rounded-full bg-white/80" />
+                  </div>
+
+                  {/* Info card — floats above or below the dot */}
+                  <motion.div
+                    className="absolute left-1/2 -translate-x-1/2 w-[168px] bg-white/[0.04] border border-white/10 rounded-2xl p-4 shadow-glass hover:border-wect-red-light/40 hover:bg-white/[0.07] transition-all duration-300 group cursor-default"
+                    style={{ top: node.above ? 'auto' : '72px', bottom: node.above ? '72px' : 'auto' }}
+                    initial={{ opacity: 0, y: node.above ? 10 : -10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.12 + 0.15 }}
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <div
+                        className="w-6 h-6 rounded-lg flex items-center justify-center text-white shrink-0"
+                        style={{ backgroundColor: node.color }}
+                      >
+                        <span className="scale-75">{node.icon}</span>
+                      </div>
+                      <span className="font-display font-black text-base text-white group-hover:text-wect-red-light transition-colors">
+                        {node.year}
+                      </span>
+                    </div>
+                    <h4 className="font-display font-bold text-[10px] uppercase tracking-widest text-wect-red-light mb-1">
+                      {node.title}
+                    </h4>
+                    <p className="text-[10px] text-white/45 leading-relaxed font-light">
+                      {node.desc}
+                    </p>
+                  </motion.div>
+                </motion.div>
+              ))}
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── SECTION 3: MISSION, VISION & PILLARS ─────────────── */}
+      <section className="relative w-full bg-wect-navy text-white pt-12 pb-10 lg:pt-14 lg:pb-12 overflow-hidden border-t border-white/5">
+        {/* Ambient glows */}
+        <div className="absolute top-[10%] right-[-8%] w-[400px] h-[400px] rounded-full bg-wect-red/6 blur-[110px] pointer-events-none" />
+        <div className="absolute bottom-[10%] left-[-8%] w-[350px] h-[350px] rounded-full bg-wect-blue/8 blur-[100px] pointer-events-none" />
+        <div
+          className="absolute inset-0 bg-blueprint-grid opacity-[0.05] pointer-events-none"
+          style={{ maskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)', WebkitMaskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)' }}
+        />
+
+        <div className="relative z-10 section-container">
+
+          {/* Section Header */}
+          <motion.div
+            className="text-center mb-10 space-y-2"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <motion.div variants={fadeUp} className="flex items-center justify-center gap-3">
+              <span className="h-px w-8 bg-gradient-to-r from-transparent to-wect-red-light" />
+              <span className="font-mono text-[9px] tracking-[0.3em] text-wect-red-light uppercase font-bold">OUR VALUES</span>
+              <span className="h-px w-8 bg-gradient-to-l from-transparent to-wect-red-light" />
+            </motion.div>
+            <motion.h3
+              variants={fadeUp}
+              className="text-2xl sm:text-3xl lg:text-4xl font-display font-black uppercase text-white leading-tight"
+            >
+              Mission, Vision &{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-wect-red-light">Excellence</span>
+            </motion.h3>
+            <motion.p variants={fadeUp} className="text-white/50 text-sm font-light max-w-xl mx-auto leading-relaxed">
+              The guiding principles that drive our engineering culture and define every tool we manufacture.
+            </motion.p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+            {/* Mission & Vision — Left Column */}
+            <div className="lg:col-span-5 flex flex-col gap-5">
+
+              {/* Mission Card */}
+              <motion.div
+                className="relative bg-white/[0.025] border border-white/[0.04] rounded-2xl p-6 flex flex-col flex-1 overflow-hidden group cursor-default"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -3, transition: { duration: 0.25 } }}
+              >
+                {/* Top border accent line */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-wect-blue via-wect-blue/60 to-transparent rounded-t-2xl" />
+                {/* Corner glow */}
+                <div className="absolute top-0 left-0 w-24 h-24 bg-wect-blue/8 blur-2xl rounded-full -translate-x-6 -translate-y-6 group-hover:bg-wect-blue/15 transition-all duration-500 pointer-events-none" />
+
+                <div className="flex items-center gap-3 mb-4 relative z-10">
+                  <motion.div
+                    className="w-11 h-11 bg-gradient-to-br from-wect-blue to-wect-blue/60 text-white rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(47,63,145,0.35)] shrink-0"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: 'spring', stiffness: 400 }}
+                  >
+                    <Target size={18} />
+                  </motion.div>
+                  <div>
+                    <p className="font-mono text-[8px] tracking-[0.2em] text-wect-blue uppercase font-bold mb-0.5">OBJECTIVE</p>
+                    <h4 className="font-display font-black text-base uppercase text-white tracking-wide leading-none">Our Mission</h4>
+                  </div>
+                </div>
+
+                <div className="h-px bg-gradient-to-r from-wect-blue/30 to-transparent mb-4 relative z-10" />
+
+                <p className="text-sm text-white/65 leading-relaxed font-light relative z-10">
+                  To engineer premium precision cutting tool solutions that empower industrial
+                  manufacturing partners to achieve maximum efficiency, metallurgical reliability, and
+                  manufacturing excellence.
+                </p>
+              </motion.div>
+
+              {/* Vision Card */}
+              <motion.div
+                className="relative bg-white/[0.025] border border-white/[0.04] rounded-2xl p-6 flex flex-col flex-1 overflow-hidden group cursor-default"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -3, transition: { duration: 0.25 } }}
+              >
+                {/* Top border accent line */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-wect-red via-wect-red-light/70 to-transparent rounded-t-2xl" />
+                {/* Corner glow */}
+                <div className="absolute top-0 left-0 w-24 h-24 bg-wect-red/8 blur-2xl rounded-full -translate-x-6 -translate-y-6 group-hover:bg-wect-red/15 transition-all duration-500 pointer-events-none" />
+
+                <div className="flex items-center gap-3 mb-4 relative z-10">
+                  <motion.div
+                    className="w-11 h-11 bg-gradient-to-br from-wect-red to-wect-red-light text-white rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(168,31,61,0.35)] shrink-0"
+                    whileHover={{ scale: 1.1, rotate: -5 }}
+                    transition={{ type: 'spring', stiffness: 400 }}
+                  >
+                    <Eye size={18} />
+                  </motion.div>
+                  <div>
+                    <p className="font-mono text-[8px] tracking-[0.2em] text-wect-red-light uppercase font-bold mb-0.5">LONG-TERM GOAL</p>
+                    <h4 className="font-display font-black text-base uppercase text-white tracking-wide leading-none">Our Vision</h4>
+                  </div>
+                </div>
+
+                <div className="h-px bg-gradient-to-r from-wect-red/30 to-transparent mb-4 relative z-10" />
+
+                <p className="text-sm text-white/65 leading-relaxed font-light relative z-10">
+                  To be the global benchmark for high-performance CNC tooling, recognized for our
+                  technological innovation, custom engineering capabilities, and commitment to
+                  precision tooling design.
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Excellence Pillars — Right Column */}
+            <div className="lg:col-span-7">
+              <motion.div
+                className="grid grid-cols-1 gap-3.5"
+                variants={cardStagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.15 }}
+              >
+                {valuesData.map((val, index) => {
+                  const accentColors = [
+                    { border: 'hover:border-wect-blue/50', iconBg: 'bg-gradient-to-br from-wect-blue to-wect-blue/60', iconGlow: 'shadow-[0_0_16px_rgba(47,63,145,0.3)]', dot: 'bg-wect-blue', label: 'text-wect-blue' },
+                    { border: 'hover:border-wect-red-light/50', iconBg: 'bg-gradient-to-br from-wect-red to-wect-red-light', iconGlow: 'shadow-[0_0_16px_rgba(229,33,61,0.3)]', dot: 'bg-wect-red-light', label: 'text-wect-red-light' },
+                    { border: 'hover:border-wect-blue/50', iconBg: 'bg-gradient-to-br from-wect-blue to-wect-blue/60', iconGlow: 'shadow-[0_0_16px_rgba(47,63,145,0.3)]', dot: 'bg-wect-blue', label: 'text-wect-blue' },
+                    { border: 'hover:border-wect-red-light/50', iconBg: 'bg-gradient-to-br from-wect-red to-wect-red-light', iconGlow: 'shadow-[0_0_16px_rgba(229,33,61,0.3)]', dot: 'bg-wect-red-light', label: 'text-wect-red-light' },
+                  ]
+                  const accent = accentColors[index % 4]
+
+                  return (
+                    <motion.div
+                      key={index}
+                      variants={fadeUp}
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      className={`relative bg-white/[0.025] border border-white/[0.04] p-5 rounded-2xl flex items-start gap-4 cursor-default overflow-hidden transition-all duration-300 ${accent.border} ${hoveredIndex === index ? 'shadow-[0_4px_24px_rgba(0,0,0,0.3)]' : ''}`}
+                      whileHover={{ y: -2, transition: { duration: 0.2 } }}
+                    >
+                      {/* Subtle glow bg on hover */}
+                      <div className={`absolute inset-0 opacity-0 transition-opacity duration-500 ${hoveredIndex === index ? 'opacity-100' : ''} bg-gradient-to-br from-white/[0.015] to-transparent pointer-events-none`} />
+
+                      {/* Icon Box */}
+                      <motion.div
+                        className={`w-11 h-11 rounded-xl flex items-center justify-center text-white shrink-0 ${accent.iconBg} ${accent.iconGlow} transition-all duration-300`}
+                        animate={hoveredIndex === index ? { scale: 1.1 } : { scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 400 }}
+                      >
+                        {val.icon}
+                      </motion.div>
+
+                      {/* Text */}
+                      <div className="space-y-1 relative z-10">
+                        <div className="flex items-center gap-2">
+                          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${accent.dot}`} />
+                          <h5 className="font-display font-black text-sm uppercase tracking-wider text-white leading-none">
+                            {val.title}
+                          </h5>
+                        </div>
+                        <p className="text-[12px] text-white/55 leading-relaxed font-light pl-3.5">{val.desc}</p>
+                      </div>
+
+                      {/* Animated right chevron accent on hover */}
+                      <div className={`ml-auto shrink-0 transition-all duration-300 ${hoveredIndex === index ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-1'}`}>
+                        <div className={`w-5 h-5 rounded-full border ${accent.border} flex items-center justify-center`}>
+                          <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M3 1.5L5.5 4L3 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-white/60" /></svg>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </motion.div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 4: WHY CHOOSE WECT ───────────────────────── */}
+      <section
+        id="why-us"
+        className="relative w-full bg-wect-navy text-white pt-8 pb-8 lg:pt-10 lg:pb-10 overflow-hidden border-t border-white/5"
+      >
+        {/* Ambient glows */}
+        <div className="absolute bottom-[10%] left-[-8%] w-[500px] h-[500px] rounded-full bg-wect-blue/8 blur-[130px] pointer-events-none" />
+        <div className="absolute top-[20%] right-[-8%] w-[350px] h-[350px] rounded-full bg-wect-red/6 blur-[110px] pointer-events-none" />
+        <div
+          className="absolute inset-0 bg-blueprint-grid opacity-[0.05] pointer-events-none"
+          style={{ maskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)', WebkitMaskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)' }}
+        />
+
+        <div className="relative z-10 section-container">
+
+          {/* Section Header */}
+          <motion.div
+            className="text-center mb-10 space-y-2"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <motion.div variants={fadeUp} className="flex items-center justify-center gap-3">
+              <span className="h-px w-8 bg-gradient-to-r from-transparent to-wect-blue" />
+              <span className="font-mono text-[9px] tracking-[0.3em] text-wect-blue uppercase font-bold">THE WECT ADVANTAGE</span>
+              <span className="h-px w-8 bg-gradient-to-l from-transparent to-wect-blue" />
+            </motion.div>
+            <motion.h3
+              variants={fadeUp}
+              className="text-2xl sm:text-3xl lg:text-4xl font-display font-black uppercase text-white leading-tight"
+            >
+              Why CNC Machinists{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-wect-red-light to-white">Choose WECT</span>
+            </motion.h3>
+            <motion.p variants={fadeUp} className="text-white/50 text-sm font-light max-w-xl mx-auto leading-relaxed">
+              Eight reasons why precision engineers across industries trust our tools for critical machining operations.
+            </motion.p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+
+            {/* Left — Brand CTA card */}
+            <div className="lg:col-span-4 flex">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="relative w-full bg-white/[0.025] border border-white/[0.04] rounded-3xl overflow-hidden group p-7 flex flex-col justify-between gap-8 hover:border-wect-red-light/20 transition-all duration-500 h-full"
+                whileHover={{ y: -4, transition: { duration: 0.3 } }}
+              >
+                {/* Top gradient accent */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-wect-blue via-wect-red-light/60 to-transparent rounded-t-3xl" />
+                {/* Corner glow */}
+                <div className="absolute top-0 left-0 w-32 h-32 bg-wect-blue/6 blur-3xl rounded-full -translate-x-8 -translate-y-8 group-hover:bg-wect-blue/12 transition-all duration-700 pointer-events-none" />
+                <div className="absolute bottom-0 right-0 w-28 h-28 bg-wect-red/5 blur-3xl rounded-full translate-x-6 translate-y-6 pointer-events-none" />
+
+                {/* Top block — Brand Statement */}
+                <div className="relative z-10 space-y-4 flex flex-col flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="h-px w-5 bg-wect-red-light/60" />
+                    <span className="font-mono text-[10px] tracking-[0.2em] text-wect-red-light uppercase font-bold">WECT TOOLS</span>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h3 className="font-display font-black text-xl sm:text-2xl uppercase text-white leading-tight tracking-tight">
+                      Built for{' '}
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-wect-blue to-wect-blue/70">Precision</span>
+                      <br />
+                      Trusted for{' '}
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-wect-red-light to-white">Performance</span>
+                    </h3>
+                    <p className="text-white/60 text-sm leading-relaxed font-light">
+                      Every tool we manufacture is held to the highest dimensional tolerances — from substrate selection to final coating and inspection.
+                    </p>
+                  </div>
+
+                  {/* Single Product Image — fills remaining space */}
+                  <div className="group/img relative flex-1 min-h-[140px] rounded-xl overflow-hidden border border-white/[0.06] bg-white">
+                    <img
+                      src={blueprintProductImg}
+                      alt="WECT Precision Tools"
+                      className="absolute inset-0 w-full h-full object-contain p-4 group-hover/img:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-end px-3 pb-2">
+                      <span className="font-mono text-[8px] text-white/90 uppercase tracking-wider">Precision Milling Cutters</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom block — Custom Tool CTA */}
+                <div className="relative z-10 space-y-4 border-t border-white/[0.06] pt-6">
+                  <div className="space-y-1">
+                    <p className="font-mono text-[10px] tracking-[0.2em] text-wect-red-light uppercase font-bold">CUSTOM ENGINEERING</p>
+                    <h4 className="font-display font-black text-base uppercase text-white tracking-wide leading-tight">
+                      Need a Custom Tool?
+                    </h4>
+                    <p className="text-white/60 text-sm leading-relaxed font-light">
+                      Request engineering consultation for bespoke geometries, custom coatings, and batch manufacturing.
+                    </p>
+                  </div>
+
+                  <motion.a
+                    href="/contact"
+                    className="flex items-center justify-center gap-2 w-full py-3 px-5 bg-gradient-to-r from-wect-red to-wect-red-light text-white font-display font-bold text-xs uppercase tracking-widest rounded-xl shadow-[0_0_20px_rgba(168,31,61,0.25)] hover:shadow-[0_0_30px_rgba(229,33,61,0.4)] transition-all duration-300"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Request a Quote
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </motion.a>
+                </div>
+
+                {/* Bottom scanning accent */}
+                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-wect-red-light via-wect-blue/60 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+              </motion.div>
+            </div>
+
+
+            {/* Right — reasons cards grid */}
+            <div className="lg:col-span-8">
+              <motion.div
+                variants={cardStagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.1 }}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+              >
+                {reasons.map((item, idx) => {
+                  const Icon = item.icon
+                  const isBlue = idx % 2 === 0
+                  return (
+                    <motion.div
+                      key={item.title}
+                      variants={fadeUp}
+                      className="group relative bg-white/[0.025] border border-white/[0.04] rounded-2xl p-5 overflow-hidden text-white cursor-default"
+                      whileHover={{ y: -3, transition: { duration: 0.25 } }}
+                    >
+                      {/* Hover background tint */}
+                      <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none bg-gradient-to-br ${isBlue ? 'from-wect-blue/5' : 'from-wect-red/5'} to-transparent`} />
+
+                      {/* Top left colored border on hover */}
+                      <div className={`absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl bg-gradient-to-r scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left ${isBlue ? 'from-wect-blue to-transparent' : 'from-wect-red-light to-transparent'}`} />
+
+                      {/* Metric badge */}
+                      <div className="absolute top-4 right-4">
+                        <span className={`font-mono text-[8px] border px-2 py-0.5 rounded tracking-wider transition-all duration-300 ${isBlue
+                          ? 'text-white/60 bg-white/[0.05] border-white/15 group-hover:border-white/30 group-hover:text-white'
+                          : 'text-wect-red-light/80 bg-wect-red/5 border-wect-red/20 group-hover:border-wect-red-light/50 group-hover:text-wect-red-light'
+                          }`}>
+                          {item.metric}
+                        </span>
+                      </div>
+
+                      {/* Icon */}
+                      <motion.div
+                        className={`w-9 h-9 rounded-xl flex items-center justify-center mb-4 text-white transition-all duration-300 shadow-sm ${isBlue
+                          ? 'bg-gradient-to-br from-wect-blue to-wect-blue/60 shadow-[0_0_12px_rgba(47,63,145,0.25)] group-hover:shadow-[0_0_20px_rgba(47,63,145,0.45)]'
+                          : 'bg-gradient-to-br from-wect-red to-wect-red-light shadow-[0_0_12px_rgba(168,31,61,0.25)] group-hover:shadow-[0_0_20px_rgba(229,33,61,0.45)]'
+                          }`}
+                        animate={{ scale: 1 }}
+                        whileHover={{ scale: 1.12, rotate: isBlue ? 6 : -6 }}
+                        transition={{ type: 'spring', stiffness: 400 }}
+                      >
+                        <Icon size={15} strokeWidth={2} />
+                      </motion.div>
+
+                      <h5 className={`font-display font-black text-sm text-white mb-1 uppercase tracking-wide pr-16 transition-colors duration-300 ${isBlue ? 'group-hover:text-wect-blue' : 'group-hover:text-wect-red-light'}`}>
+                        {item.title}
+                      </h5>
+                      <p className="text-white/60 text-xs leading-relaxed font-light">{item.desc}</p>
+
+                      {/* Bottom scan accent */}
+                      <div className={`absolute bottom-0 left-0 right-0 h-[1.5px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left ${isBlue ? 'bg-wect-blue' : 'bg-wect-red-light'}`} />
+                    </motion.div>
+                  )
+                })}
+              </motion.div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </>
+  )
 }

@@ -22,13 +22,13 @@ export default function FindUs() {
   return (
     <section
       id="find-us"
-      className="bg-transparent text-white py-24 font-body relative overflow-hidden border-t border-white/5"
+      className="bg-transparent text-white pt-8 pb-16 lg:pt-10 lg:pb-20 font-body relative overflow-hidden border-t border-white/5 scroll-mt-24 lg:scroll-mt-28"
     >
       <div 
         className="absolute inset-0 bg-blueprint-grid pointer-events-none z-0" 
         style={{ 
-          maskImage: 'radial-gradient(circle at 50% 50%, black 20%, transparent 70%)', 
-          WebkitMaskImage: 'radial-gradient(circle at 50% 50%, black 20%, transparent 70%)' 
+          maskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)', 
+          WebkitMaskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)' 
         }} 
       />
       <div className="max-w-[92rem] mx-auto px-6 relative z-10">

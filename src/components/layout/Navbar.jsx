@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown, Mail, Phone, ArrowRight, MapPin, Award, Globe } from 'lucide-react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logoImg from '../../assets/images/logo.png'
 
 const navLinks = [
@@ -13,6 +13,7 @@ const navLinks = [
 ]
 
 const productCategories = [
+  'ALL PRODUCTS',
   'Solid Carbide Tools',
   'Customized Form Tools',
   'Cermet, PCD & Carbide Reamers',
@@ -32,6 +33,7 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false)
   const { pathname } = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const onScroll = () => {
@@ -67,7 +69,7 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Top Info Bar — hidden on mobile, shown on sm+ */}
-        <div className={`hidden sm:block w-full py-2 transition-all duration-500 border-b text-[10px] font-mono tracking-widest ${
+        <div className={`hidden sm:block w-full py-3 transition-all duration-500 border-b text-[10px] font-mono tracking-widest ${
           isSolid
             ? 'bg-wect-navy-light/80 backdrop-blur-md border-white/5 text-steel-400'
             : 'bg-wect-navy/30 backdrop-blur-sm border-white/5 text-steel-300'
@@ -79,29 +81,29 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
                 href="mailto:info@wecttools.com"
                 className="hover:text-wect-red-light transition-colors flex items-center gap-1.5 text-steel-300 hover:text-white"
               >
-                <Mail size={11} className="shrink-0 text-wect-red-light" />
+                <Mail size={10} className="shrink-0 text-wect-red-light" />
                 <span>info@wecttools.com</span>
               </a>
               <a
                 href="tel:+919900858297"
                 className="hover:text-wect-red-light transition-colors flex items-center gap-1.5 text-steel-300 hover:text-white"
               >
-                <Phone size={11} className="shrink-0 text-wect-red-light" />
+                <Phone size={10} className="shrink-0 text-wect-red-light" />
                 <span>+91 99008 58297</span>
               </a>
               <div className="flex items-center gap-1.5 text-steel-300">
-                <MapPin size={11} className="shrink-0 text-wect-red-light" />
+                <MapPin size={10} className="shrink-0 text-wect-red-light" />
                 <span>Peenya Industrial Area, Bangalore, India</span>
               </div>
             </div>
             {/* Right side: Certifications & Socials */}
             <div className="flex items-center gap-6 flex-wrap">
               <div className="flex items-center gap-1.5 text-steel-300">
-                <Award size={11} className="text-wect-red-light" />
+                <Award size={10} className="text-wect-red-light" />
                 <span>ISO 9001:2015 CERTIFIED</span>
               </div>
               <div className="flex items-center gap-1.5 text-steel-300">
-                <Globe size={11} className="text-wect-red-light" />
+                <Globe size={10} className="text-wect-red-light" />
                 <span>EXPORT WORLDWIDE</span>
               </div>
             </div>
@@ -111,33 +113,37 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
         {/* Main Bar with Glassmorphism Backdrop Blur on Scroll */}
         <div className={`transition-all duration-500 ${
           isSolid
-            ? 'bg-wect-navy/70 backdrop-blur-lg py-2 border-b border-white/10 shadow-glass'
-            : 'bg-transparent py-4'
+            ? 'bg-wect-navy/70 backdrop-blur-lg py-4 border-b border-white/10 shadow-glass'
+            : 'bg-transparent py-6'
         }`}>
           <div className="section-container w-full flex items-center justify-between gap-4">
 
             {/* Logo */}
-            <Link
-              to="/"
-              onClick={(e) => {
-                window.scrollTo({ top: 0, behavior: 'smooth' })
-                if (onLogoClick) {
-                  if (pathname === '/') {
-                    e.preventDefault()
+            <div className="flex items-center gap-3 group shrink-0">
+              <Link
+                to="/"
+                onClick={(e) => {
+                  if (window.lenis) {
+                    window.lenis.scrollTo(0)
+                  } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
                   }
-                  onLogoClick()
-                }
-              }}
-              className="flex items-center gap-3 group shrink-0"
-            >
-              <div className="bg-white rounded-lg p-1.5 flex items-center justify-center h-10 w-auto min-w-[40px] transition-all duration-300 shadow-sm border border-white/10 group-hover:border-wect-red-light/30">
+                  if (onLogoClick) {
+                    if (pathname === '/') {
+                      e.preventDefault()
+                    }
+                    onLogoClick()
+                  }
+                }}
+                className="bg-white rounded-xl p-2 flex items-center justify-center h-12 w-auto min-w-[48px] transition-all duration-300 shadow-sm border border-white/10 hover:border-wect-red-light/30 cursor-pointer"
+              >
                 <img
                   src={logoImg}
                   alt="WECT Logo"
-                  className="h-7 w-auto object-contain select-none logo-img"
+                  className="h-8 w-auto object-contain select-none logo-img"
                 />
-              </div>
-              <div className="flex flex-col justify-center leading-none">
+              </Link>
+              <div className="flex flex-col justify-center leading-none select-none">
                 <span className="font-display font-black text-[15px] sm:text-[17px] tracking-tight uppercase text-white">
                   WELL EDGE
                 </span>
@@ -145,11 +151,11 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
                   CUTTING TOOLS
                 </span>
               </div>
-            </Link>
+            </div>
 
             {/* Desktop Nav */}
-            <div className="hidden xl:flex items-center gap-8">
-              <nav className="flex items-center gap-6">
+            <div className="hidden xl:flex items-center gap-10">
+              <nav className="flex items-center gap-8">
                 {navLinks.map((link) => {
                   if (link.label === 'Products') {
                     return (
@@ -161,14 +167,24 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
                       >
                         <Link
                           to={link.href}
-                          className={`font-display font-bold uppercase text-[11px] tracking-widest transition-colors duration-200 flex items-center gap-1 cursor-pointer ${
-                            dropdownOpen ? 'text-wect-red-light' : 'text-white/80 hover:text-white'
+                          onClick={() => {
+                            if (onSelectCategory) onSelectCategory('ALL PRODUCTS')
+                            if (window.lenis) {
+                              window.lenis.scrollTo(0)
+                            } else {
+                              window.scrollTo({ top: 0, behavior: 'smooth' })
+                            }
+                          }}
+                          className={`font-display font-bold uppercase text-[11px] tracking-widest transition-colors duration-200 flex items-center gap-1 cursor-pointer outline-none focus-visible:outline-none ${
+                            dropdownOpen || pathname === '/products' ? 'text-wect-red-light' : 'text-white/80 hover:text-white'
                           }`}
                         >
                           {link.label}
                           <ChevronDown size={12} className={`transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
                         </Link>
-                        <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-wect-red-light transition-all duration-200 group-hover:w-full rounded-full" />
+                        <span className={`absolute -bottom-1 left-0 h-[2px] bg-wect-red-light transition-all duration-200 rounded-full ${
+                          pathname === '/products' ? 'w-full shadow-[0_0_8px_rgba(229,33,61,0.6)]' : 'w-0 group-hover:w-full'
+                        }`} />
 
                         <AnimatePresence>
                           {dropdownOpen && (
@@ -186,7 +202,7 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
                                     onClick={() => {
                                       if (onSelectCategory) onSelectCategory(cat)
                                       setDropdownOpen(false)
-                                      if (pathname !== '/products') window.location.href = '/products'
+                                      if (pathname !== '/products') navigate('/products')
                                     }}
                                     className="text-left font-body text-xs tracking-wide px-3 py-2.5 text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-150 border-l-2 border-transparent hover:border-wect-red-light cursor-pointer"
                                   >
@@ -206,13 +222,21 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
                       <Link
                         to={link.href}
                         onClick={() => {
-                          window.scrollTo({ top: 0, behavior: 'smooth' })
+                          if (window.lenis) {
+                            window.lenis.scrollTo(0)
+                          } else {
+                            window.scrollTo({ top: 0, behavior: 'smooth' })
+                          }
                         }}
-                        className="font-display font-bold uppercase text-[11px] tracking-widest text-white/80 hover:text-white transition-colors duration-200"
+                        className={`font-display font-bold uppercase text-[11px] tracking-widest transition-colors duration-200 outline-none focus-visible:outline-none ${
+                          pathname === link.href ? 'text-wect-red-light' : 'text-white/80 hover:text-white'
+                        }`}
                       >
                         {link.label}
                       </Link>
-                      <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-wect-red-light transition-all duration-200 group-hover:w-full rounded-full" />
+                      <span className={`absolute -bottom-1 left-0 h-[2px] bg-wect-red-light transition-all duration-200 rounded-full ${
+                        pathname === link.href ? 'w-full shadow-[0_0_8px_rgba(229,33,61,0.6)]' : 'w-0 group-hover:w-full'
+                      }`} />
                     </div>
                   )
                 })}
@@ -221,9 +245,13 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
               <Link
                 to="/contact"
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                  if (window.lenis) {
+                    window.lenis.scrollTo(0)
+                  } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                  }
                 }}
-                className="font-display font-bold uppercase text-[10px] tracking-wider px-5 py-3.5 rounded-[4px] transition-all duration-300 bg-wect-red hover:bg-wect-red-dark text-white shadow-md hover:shadow-glow-red flex items-center gap-2 group border border-white/5"
+                className="font-display font-bold uppercase text-[11px] tracking-widest px-7 py-4 rounded-xl transition-all duration-300 bg-wect-red hover:bg-wect-red-dark text-white shadow-md hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(229,33,61,0.55)] flex items-center gap-2 group border border-white/5 outline-none focus-visible:outline-none"
               >
                 REQUEST A QUOTE
                 <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
@@ -282,7 +310,7 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
                                 onClick={() => {
                                   if (onSelectCategory) onSelectCategory(cat)
                                   setMobileOpen(false)
-                                  if (pathname !== '/products') window.location.href = '/products'
+                                  if (pathname !== '/products') navigate('/products')
                                 }}
                                 className="text-left font-body text-xs tracking-wide py-2 px-3 text-white/70 hover:text-white border-l-2 border-transparent hover:border-wect-red-light cursor-pointer rounded-lg hover:bg-white/5"
                               >
@@ -300,6 +328,9 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
                     key={link.label}
                     to={link.href}
                     onClick={() => {
+                      if (onSelectCategory && link.label === 'Products') {
+                        onSelectCategory('ALL PRODUCTS')
+                      }
                       setMobileOpen(false)
                       window.scrollTo({ top: 0, behavior: 'smooth' })
                     }}

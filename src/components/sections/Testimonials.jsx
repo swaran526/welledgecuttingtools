@@ -54,8 +54,8 @@ export default function Testimonials() {
       <div 
         className="absolute inset-0 bg-blueprint-grid pointer-events-none z-0" 
         style={{ 
-          maskImage: 'radial-gradient(circle at 50% 50%, black 20%, transparent 70%)', 
-          WebkitMaskImage: 'radial-gradient(circle at 50% 50%, black 20%, transparent 70%)' 
+          maskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)', 
+          WebkitMaskImage: 'radial-gradient(circle at 50% 50%, transparent 35%, black 85%)' 
         }} 
       />
       <div className="section-container relative z-10">
