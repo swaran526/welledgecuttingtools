@@ -38,7 +38,7 @@ export default function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setSlideshowIndex((prev) => (prev + 1) % slideshowImages.length);
-    }, 4500);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -173,7 +173,7 @@ export default function Hero() {
                   OFFICIAL AUTHORIZED DEALERS
                 </span>
               </div>
-              <div className="grid grid-cols-3 gap-1.5 sm:gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-3">
                 {dealers.map((dealer) => (
                   <a
                     key={dealer.name}

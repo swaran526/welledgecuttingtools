@@ -624,9 +624,9 @@ export default function ToolingPortfolio({ activeFilter = 'ALL PRODUCTS', setAct
             variants={headerItemVariants}
             className="font-display font-black uppercase text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-none"
           >
-            Cutting Tool{' '}
+            Precision Tooling &{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-wect-red-light">
-              Portfolio
+              Fluids
             </span>
           </motion.h2>
 
@@ -634,8 +634,7 @@ export default function ToolingPortfolio({ activeFilter = 'ALL PRODUCTS', setAct
             variants={headerItemVariants}
             className="text-white/60 text-sm sm:text-base font-light max-w-2xl mx-auto leading-relaxed border-t border-white/5 pt-4"
           >
-            Explore our complete line of premium-engineered rotary and specialty tooling solutions
-            designed to maximize efficiency, quality, and tool life.
+            Explore our complete range of premium-engineered cutting tools, high-performance fluids, and custom manufacturing solutions.
           </motion.p>
         </motion.div>
 
@@ -646,7 +645,7 @@ export default function ToolingPortfolio({ activeFilter = 'ALL PRODUCTS', setAct
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.05 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
         >
           {filteredProducts.map((product) => (
             <motion.div key={product.id} variants={cardVariants}>

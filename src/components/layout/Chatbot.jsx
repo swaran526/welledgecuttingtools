@@ -5,21 +5,53 @@ import { MessageSquare, X, Send, Bot, ChevronRight } from 'lucide-react'
 // Predefined dialogue responses
 const BOT_RESPONSES = {
   menu: {
-    text: "Hello! Welcome to WECT (Well Edge Cutting Tools). How can I assist you with your machining requirements today?",
+    text: "Hello! Welcome to WECT (Well Edge Cutting Tools). How can I assist you with your machining and industrial requirements today?",
     options: [
-      { label: "🛠️ Explore Products", action: "explore_products" },
+      { label: "🛠️ Explore Products & Fluids", action: "explore_products" },
       { label: "📐 Request Custom Tooling", action: "start_lead_capture" },
       { label: "🏭 About WECT", action: "about_company" },
       { label: "📞 Get in Touch", action: "get_in_touch" }
     ]
   },
   explore_products: {
-    text: "We manufacture high-precision cutting tools engineered for high performance CNC milling. Which category would you like to explore?",
+    text: "We provide premium manufactured cutting tools along with industrial fluids and authorized partner brands. Which product line would you like to explore?",
     options: [
-      { label: "⚙️ Carbide & Cobalt End Mills", action: "prod_end_mills" },
-      { label: "🔍 Reamers, Drills & Slot Drills", action: "prod_drills" },
-      { label: "📐 Taps, Milling & Custom Tools", action: "prod_other" },
+      { label: "⚙️ Solid Carbide Tools", action: "prod_solid_carbide" },
+      { label: "💎 PCD Boring Tools", action: "prod_pcd" },
+      { label: "📐 Customized Profile Cutters", action: "prod_customized" },
+      { label: "🤝 Authorized Partner Brands", action: "prod_partners" },
       { label: "🔙 Back to Main Menu", action: "go_to_menu" }
+    ]
+  },
+  prod_solid_carbide: {
+    text: "Our manufactured Solid Carbide Tools include:\n\n• Solid Carbide End Mills: Engineered for high-performance milling in hard materials with AlTiN/nACo coatings.\n• Solid Carbide Drills: Internal coolant-through drills for straight and deep-hole drilling.",
+    options: [
+      { label: "View Solid Carbide End Mills", scrollId: "products", filter: "Solid Carbide End Mills" },
+      { label: "View Solid Carbide Drills", scrollId: "products", filter: "Solid Carbide Drills" },
+      { label: "🔙 Back to Products Menu", action: "explore_products" }
+    ]
+  },
+  prod_pcd: {
+    text: "Our Polycrystalline Diamond (PCD) Boring Tools include:\n\n• PCD Boring Tools: Tipped boring cartridges, fine boring bars, and guide pad tools ground for high-speed finishing of non-ferrous workpieces.",
+    options: [
+      { label: "View PCD Boring Tools", scrollId: "products", filter: "PCD Boring Tools" },
+      { label: "🔙 Back to Products Menu", action: "explore_products" }
+    ]
+  },
+  prod_customized: {
+    text: "Our customized profile cutters are tailormade to client blueprints:\n\n• Customized Profile Cutters: High-precision profile cutters, form tools, and step cutters ground to proprietary blueprints for combined machining cycle operations.",
+    options: [
+      { label: "View Customized Profile Cutters", scrollId: "products", filter: "Customized Profile Cutters" },
+      { label: "🔙 Back to Products Menu", action: "explore_products" }
+    ]
+  },
+  prod_partners: {
+    text: "We are authorized distributors for leading industrial partner brands:\n\n• Tungaloy Indexable Tools: Indexable turning holders, milling cutters, and carbide inserts from Japan.\n• Emkay Taps: High-performance HSS and Cobalt thread taps from India.\n• Oemeta Coolants & Fluids: Premium water-soluble metalworking fluids and neat oils from Germany.",
+    options: [
+      { label: "View Tungaloy Indexable Tools", scrollId: "products", filter: "Tungaloy Indexable Tools" },
+      { label: "View Emkay Taps", scrollId: "products", filter: "Emkay Taps" },
+      { label: "View Oemeta Coolants & Fluids", scrollId: "products", filter: "Oemeta Coolants & Fluids" },
+      { label: "🔙 Back to Products Menu", action: "explore_products" }
     ]
   },
   about_company: {
@@ -48,36 +80,8 @@ const BOT_RESPONSES = {
   process: {
     text: "Our manufacturing process covers 6 critical stages:\n\n1. Tool Design & Engineering (CAD/CAM)\n2. CNC Raw Machining (Blanks pre-shaping)\n3. Heat Treatment (Thermal hardening)\n4. Grinding (5-axis multi-axis grinding)\n5. Metrology Inspection (Dimensional accuracy check)\n6. Packaging & Dispatch (Cleaned & protective coated dispatch)",
     options: [
-      { label: "🛠️ Explore Products", action: "explore_products" },
+      { label: "🛠️ Explore Products & Fluids", action: "explore_products" },
       { label: "🔙 Back to Main Menu", action: "go_to_menu" }
-    ]
-  },
-  prod_end_mills: {
-    text: "This group contains:\n\n• Carbide End Mills: High-performance variable helix geometries for vibration-free roughing.\n• Cobalt End Mills: High heat red-hardness end mills for heavy carbon steel removal.\n• Roughing End Mills: Serrated profile chip breakers for reduced cycle times.\n• Ball Nose End Mills: Precision ground ball nose tools for 3D profiling.",
-    options: [
-      { label: "View Carbide End Mills", scrollId: "products", filter: "Carbide End Mills" },
-      { label: "View Cobalt End Mills", scrollId: "products", filter: "Cobalt End Mills" },
-      { label: "View Roughing End Mills", scrollId: "products", filter: "Roughing End Mills" },
-      { label: "View Ball Nose End Mills", scrollId: "products", filter: "Ball Nose End Mills" },
-      { label: "🔙 Back to Products Menu", action: "explore_products" }
-    ]
-  },
-  prod_drills: {
-    text: "This group contains:\n\n• Slot Drills: 2-flute slot drills with precise center-cutting capability.\n• Drill Bits: Solid carbide twist drills with fast chip clearance.\n• Reamers: Multi-fluted reamers for finishing holes with micron-level tolerances.",
-    options: [
-      { label: "View Slot Drills", scrollId: "products", filter: "Slot Drills" },
-      { label: "View Drill Bits", scrollId: "products", filter: "Drill Bits" },
-      { label: "View Reamers", scrollId: "products", filter: "Reamers" },
-      { label: "🔙 Back to Products Menu", action: "explore_products" }
-    ]
-  },
-  prod_other: {
-    text: "This group contains:\n\n• Taps: Spiral point and spiral flute taps for clean internal threading.\n• Milling Cutters: Indexable face mills and side slotting cutters.\n• Custom Cutting Tools: Bespoke profile form cutters built to custom blueprints.",
-    options: [
-      { label: "View Taps", scrollId: "products", filter: "Taps" },
-      { label: "View Milling Cutters", scrollId: "products", filter: "Milling Cutters" },
-      { label: "View Custom Cutting Tools", scrollId: "products", filter: "Custom Cutting Tools" },
-      { label: "🔙 Back to Products Menu", action: "explore_products" }
     ]
   }
 }
@@ -248,8 +252,8 @@ export default function Chatbot() {
   const processInquiry = (query) => {
     const text = query.toLowerCase()
 
-    if (text.includes('product') || text.includes('tool') || text.includes('carbide') || text.includes('end mill') || text.includes('reamer') || text.includes('drill')) {
-      addBotMessage("We manufacture standard & custom tools (Carbide End Mills, Cobalt End Mills, Drills, Taps, etc.). Select a group to explore:", BOT_RESPONSES.explore_products.options)
+    if (text.includes('product') || text.includes('tool') || text.includes('carbide') || text.includes('end mill') || text.includes('reamer') || text.includes('drill') || text.includes('fluid') || text.includes('coolant') || text.includes('oemeta') || text.includes('tap') || text.includes('tungaloy') || text.includes('boring') || text.includes('pcd')) {
+      addBotMessage("We provide premium manufactured cutting tools along with industrial fluids and authorized partner brands. Select a group to explore:", BOT_RESPONSES.explore_products.options)
     } else if (text.includes('custom') || text.includes('design') || text.includes('quote') || text.includes('price')) {
       setLeadStep(1)
       addBotMessage("I can forward your custom tool drawing or specification request to our engineering team. May I know your name first?")

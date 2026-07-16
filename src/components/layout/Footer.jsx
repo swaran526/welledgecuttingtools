@@ -105,7 +105,7 @@ export default function Footer({ onSelectCategory, onLogoClick }) {
               </p>
 
               {/* Standard Badges Row */}
-              <div className="grid grid-cols-4 gap-2 pt-2 border-t border-white/5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-white/5">
                 {[
                   { icon: Globe, label: 'Global', sub: 'Supplier' },
                   { icon: Award, label: '9001:2015', sub: 'Certified' },

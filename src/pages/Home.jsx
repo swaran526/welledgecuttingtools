@@ -97,7 +97,7 @@ export default function Home({ setSelectedProduct }) {
         </div>
       </section>
 
-      {/* ── 4. Product Portfolio ─────────────────────────────── */}
+      {/* ── 4. Precision Tooling & Fluids ────────────────────── */}
       <ToolingPortfolio setSelectedProduct={setSelectedProduct} />
 
 
