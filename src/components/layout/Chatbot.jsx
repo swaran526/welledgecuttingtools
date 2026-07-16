@@ -267,7 +267,7 @@ export default function Chatbot() {
       {/* Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-gradient-to-r from-wect-blue to-wect-blue rounded-full flex items-center justify-center text-white shadow-lg shadow-wect-blue/30 border-2 border-white/20 transition-all duration-300 relative cursor-pointer outline-none"
+        className="w-14 h-14 bg-gradient-to-r from-wect-red via-wect-red-light to-wect-red rounded-full flex items-center justify-center text-white shadow-lg border border-white/15 transition-all duration-300 relative cursor-pointer outline-none hover:shadow-glow-red"
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -280,7 +280,7 @@ export default function Chatbot() {
               exit={{ rotate: 90, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <X size={24} />
+              <X size={22} />
             </motion.div>
           ) : (
             <motion.div
@@ -291,9 +291,9 @@ export default function Chatbot() {
               transition={{ duration: 0.2 }}
               className="relative"
             >
-              <MessageSquare size={24} />
-              <span className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-wect-red border border-white rounded-full">
-                <span className="absolute inset-0 rounded-full bg-wect-red-light animate-ping opacity-75" />
+              <MessageSquare size={22} />
+              <span className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-white border border-wect-red rounded-full">
+                <span className="absolute inset-0 rounded-full bg-wect-red-light animate-ping opacity-80" />
               </span>
             </motion.div>
           )}
@@ -304,47 +304,57 @@ export default function Chatbot() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute bottom-20 right-0 bg-white border border-slate-200 rounded-3xl w-80 sm:w-[360px] h-[480px] sm:h-[520px] max-h-[calc(100vh-120px)] shadow-2xl flex flex-col overflow-hidden"
+            exit={{ opacity: 0, y: 40, scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 260, damping: 22 }}
+            className="absolute bottom-20 right-0 bg-wect-navy-light/95 backdrop-blur-xl border border-white/10 rounded-3xl w-80 sm:w-[370px] h-[490px] sm:h-[530px] max-h-[calc(100vh-120px)] shadow-2xl flex flex-col overflow-hidden z-50 text-white"
           >
+            {/* HUD Scan Line Effect */}
+            <div className="absolute inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-wect-red-light/30 to-transparent pointer-events-none z-20" style={{ top: '0%', animation: 'scanLine 5s linear infinite' }} />
+
             {/* Header */}
-            <div className="bg-slate-50 border-b border-slate-100 p-4 flex items-center justify-between flex-shrink-0">
+            <div className="bg-[#050810]/90 border-b border-white/5 p-4 flex items-center justify-between flex-shrink-0 relative z-10">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-wect-blue-light border border-wect-blue-light rounded-xl flex items-center justify-center text-wect-blue relative">
+                <div className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-wect-red-light relative">
                   <Bot size={20} />
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border border-white rounded-full animate-pulse" />
+                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border border-wect-navy-light rounded-full animate-pulse shadow-[0_0_8px_#10b981]" />
                 </div>
                 <div>
-                  <h4 className="text-slate-800 text-xs font-bold tracking-wide">WECT CHATBOT AI</h4>
-                  <p className="text-[9px] text-wect-red font-mono uppercase tracking-widest">Always Online</p>
+                  <h4 className="text-white text-xs font-display font-black tracking-wide uppercase">WECT CHATBOT AI</h4>
+                  <p className="text-[9px] text-wect-red-light font-mono uppercase tracking-widest leading-none mt-1">Always Online</p>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-slate-400 hover:text-slate-650 transition-colors cursor-pointer"
+                className="text-white/40 hover:text-white transition-colors cursor-pointer p-1"
+                aria-label="Close chatbot"
               >
                 <X size={18} />
               </button>
             </div>
 
             {/* Message Body */}
-            <div className="flex-grow overflow-y-auto p-4 space-y-4 bg-slate-50/50">
+            <div className="flex-grow overflow-y-auto p-4 space-y-4 bg-[#04070e]/85 bg-blueprint-grid relative z-10 no-scrollbar">
               {messages.map((msg) => (
-                <div key={msg.id} className="space-y-2">
+                <motion.div
+                  key={msg.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="space-y-2"
+                >
                   <div className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} items-start gap-2.5`}>
                     {msg.sender === 'bot' && (
-                      <div className="w-6 h-6 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-wect-blue text-xs flex-shrink-0">
+                      <div className="w-6 h-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-wect-red-light text-xs flex-shrink-0 mt-0.5">
                         <Bot size={12} />
                       </div>
                     )}
                     <div
-                      className={`max-w-[78%] rounded-2xl p-3 text-xs leading-relaxed ${
+                      className={`max-w-[80%] rounded-2xl p-3 text-xs leading-relaxed ${
                         msg.sender === 'user'
-                          ? 'bg-wect-blue text-white font-medium rounded-tr-none shadow-sm'
-                          : 'bg-white border border-slate-200 text-slate-700 rounded-tl-none whitespace-pre-line shadow-xs'
+                          ? 'bg-gradient-to-r from-wect-blue to-wect-blue-light border border-white/10 text-white font-medium rounded-tr-none shadow-md shadow-wect-blue/10'
+                          : 'bg-white/[0.03] border border-white/[0.08] text-white/95 rounded-tl-none whitespace-pre-line shadow-xs font-light'
                       }`}
                     >
                       {msg.text}
@@ -353,47 +363,47 @@ export default function Chatbot() {
 
                   {/* Options */}
                   {msg.sender === 'bot' && msg.options && msg.options.length > 0 && (
-                    <div className="pl-8 flex flex-col gap-2 pt-1 max-w-[85%]">
+                    <div className="pl-8.5 flex flex-col gap-2 pt-1.5 max-w-[88%]">
                       {msg.options.map((opt, idx) => (
                         opt.href ? (
                           <a
                             key={idx}
                             href={opt.href}
-                            className="text-left bg-white hover:bg-slate-50 border border-slate-200 hover:border-wect-blue/40 text-slate-700 hover:text-wect-blue py-2 px-3.5 rounded-xl text-[10px] font-bold tracking-wide uppercase transition-all duration-200 flex items-center justify-between group"
+                            className="text-left bg-white/[0.02] hover:bg-white/[0.08] border border-white/5 hover:border-wect-red-light/35 text-white/80 hover:text-white py-2 px-3.5 rounded-xl text-[10px] font-bold tracking-wide uppercase transition-all duration-200 flex items-center justify-between group shadow-sm shrink-0"
                           >
                             <span>{opt.label}</span>
-                            <ChevronRight size={12} className="text-wect-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <ChevronRight size={12} className="text-wect-red-light opacity-0 group-hover:opacity-100 transition-all duration-350" />
                           </a>
                         ) : (
                           <button
                             key={idx}
                             onClick={() => handleAction(opt)}
-                            className="text-left bg-white hover:bg-slate-50 border border-slate-200 hover:border-wect-blue/40 text-slate-700 hover:text-wect-blue py-2 px-3.5 rounded-xl text-[10px] font-bold tracking-wide uppercase transition-all duration-200 cursor-pointer flex items-center justify-between group"
+                            className="text-left bg-white/[0.02] hover:bg-white/[0.08] border border-white/5 hover:border-wect-red-light/35 text-white/80 hover:text-white py-2 px-3.5 rounded-xl text-[10px] font-bold tracking-wide uppercase transition-all duration-200 cursor-pointer flex items-center justify-between group shadow-sm shrink-0"
                           >
                             <span>{opt.label}</span>
-                            <ChevronRight size={12} className="text-wect-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <ChevronRight size={12} className="text-wect-red-light opacity-0 group-hover:opacity-100 transition-all duration-350" />
                           </button>
                         )
                       ))}
                     </div>
                   )}
-                </div>
+                </motion.div>
               ))}
               <div ref={chatEndRef} />
             </div>
 
             {/* Input Bar */}
-            <form onSubmit={handleSendText} className="p-3 bg-white border-t border-slate-100 flex gap-2 flex-shrink-0 items-center">
+            <form onSubmit={handleSendText} className="p-3 bg-[#050810]/95 border-t border-white/5 flex gap-2 flex-shrink-0 items-center relative z-10">
               <input
                 type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder={leadStep > 0 ? "Type here..." : "Ask WECT..."}
-                className="flex-grow bg-slate-50 border border-slate-200 focus:border-wect-blue-650/40 text-slate-800 rounded-xl px-4 py-2.5 text-xs outline-none transition-all placeholder:text-slate-400"
+                className="flex-grow bg-[#03060c] border border-white/5 focus:border-wect-red-light/40 focus:shadow-[0_0_12px_rgba(196,18,48,0.25)] text-white rounded-xl px-4 py-2.5 text-xs outline-none transition-all placeholder:text-white/30"
               />
               <button
                 type="submit"
-                className="w-8 h-8 rounded-xl bg-wect-blue text-white flex items-center justify-center hover:bg-wect-red transition-colors cursor-pointer flex-shrink-0 outline-none"
+                className="w-8.5 h-8.5 rounded-xl bg-wect-red text-white flex items-center justify-center hover:bg-wect-red-light transition-all shadow-md hover:shadow-glow-red hover:scale-102 cursor-pointer flex-shrink-0 outline-none border border-white/10"
               >
                 <Send size={12} />
               </button>

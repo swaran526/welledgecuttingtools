@@ -13,17 +13,13 @@ const navLinks = [
 ]
 
 const productCategories = [
-  'ALL PRODUCTS',
-  'Solid Carbide Tools',
-  'Customized Form Tools',
-  'Cermet, PCD & Carbide Reamers',
+  'Solid Carbide End Mills',
+  'Solid Carbide Drills',
+  'Tungaloy Indexable Tools',
+  'Oemeta Coolants & Fluids',
+  'Emkay Taps',
   'PCD Boring Tools',
-  'Hob & Firtree',
-  'PCD & PCBN Inserts',
-  'Fine Boring Guide Pad Tools',
-  'SPL PCD Wiper Cartridge',
-  'Micro Tools & Blank Preparation',
-  'Customized Form Cutters',
+  'Customized Cutters',
 ]
 
 export default function Navbar({ onSelectCategory, onLogoClick }) {
@@ -193,7 +189,7 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
                               animate={{ opacity: 1, y: 0, scale: 1 }}
                               exit={{ opacity: 0, y: 12, scale: 0.97 }}
                               transition={{ duration: 0.2, ease: 'easeOut' }}
-                              className="absolute left-0 mt-4 w-72 bg-wect-navy-light border border-white/10 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-3 z-50 text-white"
+                              className="absolute left-0 mt-4 w-80 bg-wect-navy-light border border-white/10 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-3 z-50 text-white"
                             >
                               <div className="flex flex-col gap-0.5">
                                 {productCategories.map((cat) => (
@@ -202,7 +198,6 @@ export default function Navbar({ onSelectCategory, onLogoClick }) {
                                     onClick={() => {
                                       if (onSelectCategory) onSelectCategory(cat)
                                       setDropdownOpen(false)
-                                      if (pathname !== '/products') navigate('/products')
                                     }}
                                     className="text-left font-body text-xs tracking-wide px-3 py-2.5 text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-150 border-l-2 border-transparent hover:border-wect-red-light cursor-pointer"
                                   >

@@ -27,16 +27,13 @@ const contactDetails = [
 ]
 
 const productCategories = [
-  'Solid Carbide Tools',
-  'Customized Form Tools',
-  'Cermet, PCD & Carbide Reamers',
+  'Solid Carbide End Mills',
+  'Solid Carbide Drills',
+  'Tungaloy Indexable Tools',
+  'Oemeta Coolants & Fluids',
+  'Emkay Taps',
   'PCD Boring Tools',
-  'Hob & Firtree',
-  'PCD & PCBN Inserts',
-  'Fine Boring Guide Pad Tools',
-  'SPL PCD Wiper Cartridge',
-  'Micro Tools & Blank Preparation',
-  'Customized Form Cutters',
+  'Customized Cutters',
 ]
 
 const headerVariants = {

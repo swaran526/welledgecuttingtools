@@ -6,18 +6,18 @@ import {
   ClipboardCheck, Shield, Compass, Settings, Layers, Crosshair
 } from 'lucide-react'
 
-import blueprintProductImg from '../../assets/images/why_us_blueprint_product.jpg'
+import blueprintProductImg from '../../assets/images/why_us/1.jpg'
 import toolImg1 from '../../assets/images/hero_11.png'
 import toolImg2 from '../../assets/images/reamer_clean.jpg'
 
 // About section slideshow — 7 images
-import storyImg1 from '../../assets/images/our_story_1.jpeg'
-import storyImg2 from '../../assets/images/our_story_2.png'
-import storyImg3 from '../../assets/images/our_story_3.jpeg'
-import storyImg4 from '../../assets/images/our_story_4.jpeg'
-import storyImg5 from '../../assets/images/hero_2.png'
-import storyImg6 from '../../assets/images/hero_8.png'
-import storyImg7 from '../../assets/images/hero_9.png'
+import storyImg1 from '../../assets/images/our-story/1.jpeg'
+import storyImg2 from '../../assets/images/our-story/2.jpeg'
+import storyImg3 from '../../assets/images/our-story/3.png'
+import storyImg4 from '../../assets/images/our-story/4.jpg'
+import storyImg5 from '../../assets/images/our-story/5.jpg'
+import storyImg6 from '../../assets/images/our-story/6.jpg'
+import storyImg7 from '../../assets/images/our-story/7.jpeg'
 
 const storyImages = [
   storyImg1,
@@ -775,15 +775,12 @@ export default function About() {
                   </div>
 
                   {/* Single Product Image — fills remaining space */}
-                  <div className="group/img relative flex-1 min-h-[140px] rounded-xl overflow-hidden border border-white/[0.06] bg-white">
+                  <div className="group/img relative flex-1 min-h-[140px] rounded-xl overflow-hidden border border-white/[0.06]">
                     <img
                       src={blueprintProductImg}
                       alt="WECT Precision Tools"
-                      className="absolute inset-0 w-full h-full object-contain p-4 group-hover/img:scale-105 transition-transform duration-700"
+                      className="absolute inset-0 w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-end px-3 pb-2">
-                      <span className="font-mono text-[8px] text-white/90 uppercase tracking-wider">Precision Milling Cutters</span>
-                    </div>
                   </div>
                 </div>
 

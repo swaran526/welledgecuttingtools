@@ -65,7 +65,7 @@ export default function Footer({ onSelectCategory, onLogoClick }) {
           <div className="relative z-10 flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap justify-between gap-8 lg:gap-10">
             
             {/* Column 1: Brand Profile */}
-            <div className="w-full md:w-[45%] lg:w-[24%] space-y-5">
+            <div className="w-full sm:w-[48%] lg:w-[30%] space-y-5">
               <div className="flex items-center gap-3 bg-transparent border-0 p-0 text-left group">
                 <Link
                   to="/"
@@ -125,7 +125,7 @@ export default function Footer({ onSelectCategory, onLogoClick }) {
             </div>
 
             {/* Column 2: Quick Links */}
-            <div className="w-[45%] md:w-[20%] lg:w-[12%] space-y-5">
+            <div className="w-full sm:w-[48%] lg:w-[15%] space-y-5">
               <h4 className="font-display font-bold uppercase text-xs tracking-wider text-white relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-[2px] after:bg-wect-red-light">
                 Quick Links
               </h4>
@@ -156,22 +156,19 @@ export default function Footer({ onSelectCategory, onLogoClick }) {
             </div>
 
             {/* Column 3: Products */}
-            <div className="w-full md:w-[70%] lg:w-[28%] space-y-5">
+            <div className="w-full sm:w-[48%] lg:w-[28%] space-y-5">
               <h4 className="font-display font-bold uppercase text-xs tracking-wider text-white relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-[2px] after:bg-wect-red-light">
                 Our Products
               </h4>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
                 {[
-                  'Solid Carbide Tools',
-                  'Customized Form Tools',
-                  'Cermet & PCD Reamers',
+                  'Solid Carbide End Mills',
+                  'Solid Carbide Drills',
+                  'Tungaloy Indexable Tools',
+                  'Oemeta Coolants & Fluids',
+                  'Emkay Taps',
                   'PCD Boring Tools',
-                  'Hobs & Firtree Cutters',
-                  'PCD & PCBN Special Inserts',
-                  'Fine Boring Guide Pad Tools',
-                  'Special PCD Wiper Cartridges',
-                  'Micro Tools & Blank Prep',
-                  'Customized Form Cutters'
+                  'Customized Cutters',
                 ].map((product) => (
                   <li key={product}>
                     <button
@@ -195,7 +192,7 @@ export default function Footer({ onSelectCategory, onLogoClick }) {
             </div>
 
             {/* Column 4: Contact Info */}
-            <div className="w-full md:w-[45%] lg:w-[18%] space-y-5">
+            <div className="w-full sm:w-[48%] lg:w-[22%] space-y-5">
               <h4 className="font-display font-bold uppercase text-xs tracking-wider text-white relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-[2px] after:bg-wect-red-light">
                 Contact Info
               </h4>
@@ -236,48 +233,29 @@ export default function Footer({ onSelectCategory, onLogoClick }) {
               </div>
             </div>
 
-            {/* Column 5: Find Us Map */}
-            <div className="w-full md:w-[45%] lg:w-[18%] space-y-5 flex flex-col justify-between">
-              <div>
-                <h4 className="font-display font-bold uppercase text-xs tracking-wider text-white relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-[2px] after:bg-wect-red-light mb-4">
-                  Find Us
-                </h4>
-                <div className="relative w-[220px] h-[160px] rounded-2xl overflow-hidden border border-white/10 group shadow-lg bg-white/5">
-                  <iframe
-                    title="WECT Plant Location"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.037130096238!2d77.52554761482274!3d12.971598790856018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d84a7e937d1%3A0xea8fc7beee095a5f!2sPeenya%20Industrial%20Area%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1655000000000!5m2!1sen!2sin"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) brightness(85%) contrast(110%) opacity(80%)' }}
-                    allowFullScreen=""
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-            </div>
-
           </div>
 
           {/* Separator Divider Line */}
           <div className="h-px bg-white/5 my-8 relative z-10" />
 
           {/* Bottom Highlight Metrics Row */}
-          <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-10 divide-y md:divide-y-0 lg:divide-x divide-white/5">
+          <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-6 sm:gap-8 lg:gap-10 lg:divide-x divide-white/5">
             {[
-              { icon: ShieldCheck, value: '25+', label: 'Years Experience' },
-              { icon: Wrench, value: '500+', label: 'Products' },
-              { icon: Users, value: '1000+', label: 'Happy Customers' },
+              { icon: ShieldCheck, value: '7+', label: 'Years Experience' },
+              { icon: Wrench, value: '50+', label: 'Products' },
+              { icon: Users, value: '250+', label: 'Happy Customers' },
               { icon: Target, value: '98%', label: 'Precision Accuracy' },
               { icon: Globe, value: 'Global', label: 'Export Network' },
               { icon: Headphones, value: 'Expert', label: 'Technical Support' }
             ].map((m, idx) => (
-              <div key={idx} className={`flex items-center gap-4 ${idx > 0 ? 'pt-4 md:pt-0 lg:pl-8' : ''}`}>
-                <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/70 shrink-0">
-                  <m.icon size={22} />
+              <div key={idx} className={`flex items-center gap-2.5 sm:gap-4 ${idx > 0 ? 'lg:pl-8' : ''}`}>
+                <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/70 shrink-0">
+                  <m.icon size={16} className="sm:hidden" />
+                  <m.icon size={22} className="hidden sm:block" />
                 </div>
                 <div>
-                  <div className="font-display font-black text-white text-lg sm:text-xl leading-none">{m.value}</div>
-                  <div className="font-body text-[9px] text-white/40 mt-2 font-light leading-none uppercase tracking-wider">{m.label}</div>
+                  <div className="font-display font-black text-white text-sm sm:text-lg leading-none">{m.value}</div>
+                  <div className="font-body text-[8px] sm:text-[9px] text-white/40 mt-1 sm:mt-2 font-light leading-none uppercase tracking-wider">{m.label}</div>
                 </div>
               </div>
             ))}

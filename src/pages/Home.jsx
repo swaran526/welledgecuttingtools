@@ -9,7 +9,7 @@ import ToolingPortfolio from '../components/sections/ToolingPortfolio'
 import Industries from '../components/sections/Industries'
 import BottomCTA from '../components/sections/BottomCTA'
 
-import aboutImg from '../assets/images/hero_12.webp'
+import aboutImg from '../assets/images/our-story/discover_our_stroy/discover_our_story.jpg'
 
 const features = [
   { icon: Target, title: 'Micron Precision', desc: 'CNC grinding to micron-level accuracy for aerospace, medical, and high-precision applications.' },

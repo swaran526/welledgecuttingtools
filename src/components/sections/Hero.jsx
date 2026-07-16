@@ -9,17 +9,16 @@ import {
   Cpu
 } from 'lucide-react';
 
-// Import 10 precision tooling images from the assets folder
-import img1 from '../../assets/images/hero/hero_1.png';
-import img2 from '../../assets/images/hero/hero_2.png';
-import img3 from '../../assets/images/hero/hero_3.png';
-import img4 from '../../assets/images/hero/hero_4.jpeg';
-import img5 from '../../assets/images/hero/hero_5.png';
-import img6 from '../../assets/images/hero/hero_6.png';
-import img7 from '../../assets/images/hero/hero_7.png';
-import img8 from '../../assets/images/hero/hero_8.png';
-import img9 from '../../assets/images/hero/hero_9.png';
-import img10 from '../../assets/images/hero/hero_10.png';
+// Import 9 precision tooling images from the assets folder
+import img1 from '../../assets/images/hero/hero1.png';
+import img2 from '../../assets/images/hero/hero2.png';
+import img3 from '../../assets/images/hero/hero3.png';
+import img4 from '../../assets/images/hero/hero4.jpeg';
+import img5 from '../../assets/images/hero/hero5.jpg';
+import img6 from '../../assets/images/hero/hero6.jpeg';
+import img7 from '../../assets/images/hero/hero7.jpeg';
+import img8 from '../../assets/images/hero/hero8.png';
+import img9 from '../../assets/images/hero/hero9.jpg';
 
 const slideshowImages = [
   { src: img1, name: 'Solid Carbide End Mills', category: 'SOLID CARBIDE' },
@@ -30,8 +29,7 @@ const slideshowImages = [
   { src: img6, name: 'Hobs & Firtree Cutters', category: 'GEAR HOBBING' },
   { src: img7, name: 'PCD & PCBN Special Inserts', category: 'SPECIAL INSERTS' },
   { src: img8, name: 'Micro End Mills & Drills', category: 'MICRO TOOLING' },
-  { src: img9, name: 'AlTiN Coated End Mills', category: 'COATED TOOLING' },
-  { src: img10, name: 'Customized Form Tools', category: 'CUSTOM GEOMETRY' },
+  { src: img9, name: 'Customized Form Tools', category: 'CUSTOM GEOMETRY' }
 ];
 
 export default function Hero() {
@@ -110,7 +108,7 @@ export default function Hero() {
 
           {/* Left Column: Copy & Indicators */}
           <motion.div
-            className="lg:col-span-6 space-y-3 sm:space-y-5 text-left order-2 lg:order-1"
+            className="lg:col-span-6 space-y-3 sm:space-y-5 text-left"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -150,17 +148,17 @@ export default function Hero() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-2 sm:gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <Link
                 to="/contact"
-                className="btn-primary text-[10px] sm:text-xs tracking-wider rounded-full py-2.5 sm:py-3.5 px-5 sm:px-8"
+                className="btn-primary text-[10px] sm:text-xs tracking-wider rounded-full py-2.5 sm:py-3.5 px-5 sm:px-8 w-full sm:w-auto justify-center"
               >
                 REQUEST A QUOTE
                 <ArrowRight size={13} />
               </Link>
               <Link
                 to="/products"
-                className="btn-secondary text-[10px] sm:text-xs tracking-wider rounded-full py-2.5 sm:py-3.5 px-5 sm:px-8"
+                className="btn-secondary text-[10px] sm:text-xs tracking-wider rounded-full py-2.5 sm:py-3.5 px-5 sm:px-8 w-full sm:w-auto justify-center"
               >
                 EXPLORE PRODUCTS
                 <ArrowRight size={13} />
@@ -182,7 +180,7 @@ export default function Hero() {
                     href={dealer.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative bg-white/[0.02] border border-white/5 rounded-xl sm:rounded-2xl py-2.5 sm:py-3.5 px-2 sm:px-4 flex flex-col items-center justify-center transition-all duration-300 hover:border-wect-red-light/35 hover:bg-white/[0.04] shadow-glass group"
+                    className="relative bg-white/[0.02] border border-white/5 rounded-xl sm:rounded-2xl py-2 px-1.5 sm:px-4 flex flex-col items-center justify-center transition-all duration-300 hover:border-wect-red-light/35 hover:bg-white/[0.04] shadow-glass group"
                   >
                     {/* Top glowing line on card hover */}
                     <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-wect-red-light/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -201,7 +199,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            className="lg:col-span-6 relative order-1 lg:order-2"
+            className="lg:col-span-6 relative"
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
@@ -215,57 +213,13 @@ export default function Hero() {
                   key={slideshowIndex}
                   src={slideshowImages[slideshowIndex].src}
                   alt={slideshowImages[slideshowIndex].name}
-                  className="absolute inset-0 w-full h-full object-cover brightness-[0.55] group-hover:brightness-[0.45] transition-all duration-500"
-                  initial={{ opacity: 0, scale: 1.05 }}
+                  className="absolute inset-0 w-full h-full object-cover transition-all duration-500"
+                  initial={{ opacity: 0, scale: 1.04 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.8, ease: "easeInOut" }}
                 />
               </AnimatePresence>
-
-              {/* Laser Scan Animation Line */}
-              <div
-                className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-wect-red-light/50 to-transparent pointer-events-none z-20"
-                style={{
-                  top: '0%',
-                  animation: 'scanLine 4s linear infinite'
-                }}
-              />
-
-              {/* Creative HUD Overlay Details */}
-              <div className="absolute inset-0 p-4 sm:p-8 flex flex-col justify-end z-10 pointer-events-none select-none">
-
-                {/* Center target crosshair alignment */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center opacity-[0.15]">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-dashed border-white flex items-center justify-center animate-spin" style={{ animationDuration: '24s' }}>
-                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border border-dotted border-white" />
-                  </div>
-                  <div className="absolute w-4 h-[1px] bg-white" />
-                  <div className="absolute h-4 w-[1px] bg-white" />
-                </div>
-
-                {/* Bottom Row: Dynamic Text Description */}
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={slideshowIndex}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                    className="space-y-0.5"
-                  >
-                    <span className="font-mono text-[7px] sm:text-[8px] tracking-widest text-wect-red-light uppercase">
-                      {slideshowImages[slideshowIndex].category}
-                    </span>
-                    <p className="text-white font-display font-black uppercase text-sm sm:text-lg tracking-wide leading-tight">
-                      {slideshowImages[slideshowIndex].name}
-                    </p>
-                    <p className="text-white/50 text-[9px] sm:text-xs leading-relaxed font-light max-w-xs hidden sm:block mt-1">
-                      Engineered for exceptional accuracy, superior surface finishes, and reliable performance in high-precision machining applications.
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
             </div>
           </motion.div>
 
